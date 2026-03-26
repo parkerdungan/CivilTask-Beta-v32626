@@ -62,14 +62,33 @@ input::placeholder,textarea::placeholder{color:var(--input-ph)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <!-- EmailJS for welcome emails -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-firebase.initializeApp({apiKey:"AIzaSyDRZSJldMlckm55j4Kn62Q9irlS-7eEtm8",authDomain:"civiltask-beta.firebaseapp.com",databaseURL:"https://civiltask-beta-default-rtdb.firebaseio.com",projectId:"civiltask-beta",storageBucket:"civiltask-beta.firebasestorage.app",messagingSenderId:"447019230056",appId:"1:447019230056:web:81ba702e1669800a83ecdd"});
+firebase.initializeApp({
+  apiKey:"AIzaSyDRZSJldMlckm55j4Kn62Q9irlS-7eEtm8",
+  authDomain:"civiltask-beta.firebaseapp.com",
+  databaseURL:"https://civiltask-beta-default-rtdb.firebaseio.com",
+  projectId:"civiltask-beta",
+  storageBucket:"civiltask-beta.firebasestorage.app",
+  messagingSenderId:"447019230056",
+  appId:"1:447019230056:web:81ba702e1669800a83ecdd"
+});
 window.DB=firebase.database();
-function fromFB(val){if(!val)return null;if(Array.isArray(val))return val;if(typeof val==="object"){const keys=Object.keys(val);if(keys.every(k=>!isNaN(parseInt(k))))return Object.values(val);}return val;}
+// val comes back as object when array stored - convert
+function fromFB(val){
+  if(!val)return null;
+  if(Array.isArray(val))return val;
+  if(typeof val==='object'){
+    const keys=Object.keys(val);
+    if(keys.every(k=>!isNaN(parseInt(k))))return Object.values(val);
+  }
+  return val;
+}
+window.fbGet=(path)=>window.DB.ref(path).get().then(s=>fromFB(s.val()));
 window.fbSet=(path,val)=>window.DB.ref(path).set(val);
-window.fbOn=(path,cb)=>{const ref=window.DB.ref(path);ref.on("value",s=>cb(fromFB(s.val())));return()=>ref.off();};
+window.fbOn=(path,cb)=>{const ref=window.DB.ref(path);ref.on('value',s=>cb(fromFB(s.val())));return()=>ref.off();};
 </script>
 </head>
 <body><div id="root"></div>
@@ -405,7 +424,7 @@ const SEED_PROJECTS=[
     { id: "pj072", projectNumber: "1471L423", name: "LSBP-74(23) Sunlight Rd Bridge Replacement", description: "Walthall County Board of Supervisors", projectStatus: "construction", companyId: "c1", teamId: "t4", principalInCharge: "m51", projectManager: "m71", assigneeIds: [], teamMemberIds: [] },
     { id: "pj073", projectNumber: "1063C081", name: "City Rubbish Facility", description: "City of Columbia", projectStatus: "construction", companyId: "c1", teamId: "t4", principalInCharge: "m51", projectManager: "m71", assigneeIds: [], teamMemberIds: [] },
     { id: "pj074", projectNumber: "1441C036", name: "Surface Drainage Improvements", description: "", projectStatus: "construction", companyId: "c1", teamId: "t4", principalInCharge: "m51", projectManager: "m71", assigneeIds: [], teamMemberIds: [] },
-];;;
+];;
 const SEED_TASKS=[
     { id: "tk001", title: "Gate Change Order", projectId: "pj031", status: "todo", priority: "medium", assigneeIds: ["m71"], assigneeId: "m71", dueDate: "2026-03-17", subtasks: [], description: "" },
     { id: "tk002", title: "Send Magees Creek Invoice", projectId: "pj007", status: "todo", priority: "medium", assigneeIds: ["m71"], assigneeId: "m71", dueDate: "2026-03-17", subtasks: [], description: "" },
@@ -437,7 +456,7 @@ const SEED_TASKS=[
     { id: "tk029", title: "FEMA Road Paving Preliminary Plans", projectId: "pj027", status: "done", priority: "medium", assigneeIds: ["m71", "m109"], assigneeId: "m71", dueDate: "2026-03-25", subtasks: [], description: "" },
     { id: "tk030", title: "Reschedule Water Main Relocation", projectId: "pj012", status: "todo", priority: "medium", assigneeIds: ["m71"], assigneeId: "m71", dueDate: "2026-03-25", subtasks: [], description: "" },
     { id: "tk031", title: "Task Order 1 & 2 Pay Applications", projectId: "pj048", status: "inprogress", priority: "medium", assigneeIds: ["m71"], assigneeId: "m71", dueDate: "2026-03-25", subtasks: [], description: "" },
-];;;
+];;
 const TEAM_COLORS=["#e8a020","#4a9eca","#6ac47a","#9b71ea","#e05a4e","#e87d7d","#4acec8","#f0a050"];
 const COMPANY_LOGOS={
   "c1":"data:image/png;base64,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",
@@ -470,7 +489,7 @@ const nextProjNum=()=>{
 };
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────
-const DATA_VERSION="v35"; // bump this whenever seed data structure changes
+const DATA_VERSION="v32"; // bump this whenever seed data structure changes
 const SK={ver:"ct:ver",emailjs:"ct:emailjs",companies:"ct:companies",users:"ct:users",session:"ct:session",projects:"ct:projects",tasks:"ct:tasks",members:"ct:members",teams:"ct:teams",attach:(tid)=>"ct:att:"+tid,file:(fid)=>"ct:file:"+fid};
 const LS={
   get:(k)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch{return null}},
@@ -555,8 +574,6 @@ function Icon({name,size}){
   if(name==="hash")    return <svg {...p}><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>;
   if(name==="sched")   return <svg {...p}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>;
   if(name==="flag")    return <svg {...p}><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>;
-  if(name==="note")  return <svg {...p}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>;
-  if(name==="clock") return <svg {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
   if(name==="task")    return <svg {...p}><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>;
   return null;
 }
@@ -586,50 +603,64 @@ function FileAttachments({taskId}){
 
 // ── DUE DATE PICKER — quick presets + calendar ────────────────────────────────
 function DueDatePicker({value,onChange}){
-  const [open,setOpen]=useState(false);
-  const [calMonth,setCalMonth]=useState(()=>{if(value){const d=new Date(value+"T00:00:00");return new Date(d.getFullYear(),d.getMonth(),1);}return new Date(new Date().getFullYear(),new Date().getMonth(),1);});
-  const ref=React.useRef(null);
   const today=new Date();today.setHours(0,0,0,0);
-  const fmt=(d)=>{const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,"0");const day=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+day;};
+  const fmt=(d)=>{
+    const y=d.getFullYear();
+    const m=String(d.getMonth()+1).padStart(2,"0");
+    const day=String(d.getDate()).padStart(2,"0");
+    return y+"-"+m+"-"+day;
+  };
   const addDays=(n)=>{const d=new Date(today);d.setDate(d.getDate()+n);return fmt(d);};
   const addMonths=(n)=>{const d=new Date(today);d.setMonth(d.getMonth()+n);return fmt(d);};
-  const presets=[{label:"Tomorrow",val:addDays(1)},{label:"1 Week",val:addDays(7)},{label:"1 Month",val:addMonths(1)},{label:"2 Months",val:addMonths(2)}];
-  const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  const DAYS=["Su","Mo","Tu","We","Th","Fr","Sa"];
-  const yr=calMonth.getFullYear(),mo=calMonth.getMonth();
-  const firstDay=new Date(yr,mo,1).getDay();
-  const daysInMo=new Date(yr,mo+1,0).getDate();
-  const weeks=[];let wk=new Array(firstDay).fill(null);
-  for(let d=1;d<=daysInMo;d++){wk.push(d);if(wk.length===7){weeks.push(wk);wk=[];}}
-  if(wk.length)weeks.push([...wk,...new Array(7-wk.length).fill(null)]);
-  const pick=(ymd)=>{onChange(ymd);setOpen(false);};
-  const selD=value?new Date(value+"T00:00:00"):null;
-  const isOD=selD&&selD<today;
-  const displayVal=selD?selD.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"Set date";
-  React.useEffect(()=>{if(!open)return;const h=(e)=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
+  const presets=[
+    {label:"Tomorrow",  val:()=>addDays(1)},
+    {label:"1 Week",    val:()=>addDays(7)},
+    {label:"2 Weeks",   val:()=>addDays(14)},
+    {label:"1 Month",   val:()=>addMonths(1)},
+    {label:"2 Months",  val:()=>addMonths(2)},
+  ];
+  const displayVal=value?new Date(value+"T00:00:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"}):"No date set";
+  const isPreset=(v)=>presets.some(p=>p.val()===v);
   return(
-    <div ref={ref} style={{position:"relative",display:"inline-block"}}>
-      <button className="tap" onClick={()=>setOpen(v=>!v)} style={{display:"flex",alignItems:"center",gap:6,padding:"6px 10px",borderRadius:8,border:"1px solid "+(isOD?C.red+"66":value?C.gold+"66":C.border),background:isOD?C.red+"10":value?C.gold+"10":"transparent",color:isOD?C.red:value?C.gold:C.muted,cursor:"pointer",fontSize:12,fontWeight:600,fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap"}}>
-        <Icon name="cal" size={13}/><span>{displayVal}</span>
-        {value&&<span onClick={e=>{e.stopPropagation();onChange("");setOpen(false);}} style={{marginLeft:2,color:C.dim,fontSize:14,lineHeight:1,cursor:"pointer"}}>×</span>}
-      </button>
-      {open&&<div style={{position:"absolute",top:"calc(100% + 6px)",left:0,zIndex:500,background:"#0f1e2e",border:"1px solid "+C.border,borderRadius:14,boxShadow:"0 8px 32px rgba(0,0,0,0.5)",minWidth:260,padding:12}}>
-        <div style={{display:"flex",gap:5,marginBottom:10}}>
-          {presets.map(p=>{const active=value===p.val;return(<button key={p.label} className="tap" onClick={()=>pick(p.val)} style={{flex:1,padding:"6px 4px",borderRadius:8,border:"1px solid "+(active?C.gold+"88":C.border2),background:active?C.gold+"18":"transparent",color:active?C.gold:C.muted,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",textAlign:"center"}}>{p.label}</button>);})}
+    <div style={{display:"flex",flexDirection:"column",gap:8}}>
+      {/* Preset buttons */}
+      <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+        {presets.map(p=>{
+          const pv=p.val();
+          const active=value===pv;
+          return(
+            <button key={p.label} className="tap" onClick={()=>onChange(active?"":pv)}
+              style={{padding:"6px 12px",borderRadius:20,border:"1px solid "+(active?C.gold+"88":C.border),
+                background:active?"rgba(232,160,32,0.15)":"transparent",
+                color:active?C.gold:C.muted,
+                cursor:"pointer",fontSize:12,fontWeight:600,
+                fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:0.3,
+                transition:"all 0.12s"}}>
+              {p.label}
+            </button>
+          );
+        })}
+      </div>
+      {/* Calendar input row */}
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <div style={{position:"relative",flex:1}}>
+          <span style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:C.dim,pointerEvents:"none"}}><Icon name="cal" size={15}/></span>
+          <input type="date" value={value||""} onChange={e=>onChange(e.target.value)}
+            style={{paddingLeft:38,fontSize:13}}
+            min={fmt(new Date(today.getTime()+86400000))}/>
         </div>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
-          <button className="tap" onClick={()=>setCalMonth(m=>{const d=new Date(m);d.setMonth(d.getMonth()-1);return d;})} style={{background:"none",border:"none",color:C.muted,cursor:"pointer",fontSize:18,padding:"0 4px"}}>‹</button>
-          <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:13,color:C.heading}}>{MONTHS[mo]} {yr}</span>
-          <button className="tap" onClick={()=>setCalMonth(m=>{const d=new Date(m);d.setMonth(d.getMonth()+1);return d;})} style={{background:"none",border:"none",color:C.muted,cursor:"pointer",fontSize:18,padding:"0 4px"}}>›</button>
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:2}}>{DAYS.map(d=><div key={d} style={{textAlign:"center",fontSize:9,fontWeight:700,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",padding:"2px 0"}}>{d}</div>)}</div>
-        {weeks.map((wk,wi)=><div key={wi} style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2,marginBottom:2}}>{wk.map((d,di)=>{if(!d)return<div key={di}/>;const cellDate=new Date(yr,mo,d);cellDate.setHours(0,0,0,0);const ymd=fmt(cellDate);const isToday=cellDate.getTime()===today.getTime();const isSel=value===ymd;const isPast=cellDate<today;return(<button key={di} className="tap" onClick={()=>pick(ymd)} style={{padding:"5px 0",borderRadius:6,border:"none",background:isSel?C.gold:isToday?C.blue+"22":"transparent",color:isSel?C.bg0:isToday?C.blue:isPast?C.dim:C.text,fontWeight:isSel||isToday?700:400,fontSize:12,cursor:"pointer",textAlign:"center"}}>{d}</button>);})}</div>)}
-        {value&&<button className="tap" onClick={()=>{onChange("");setOpen(false);}} style={{width:"100%",marginTop:8,padding:"6px",borderRadius:8,border:"1px solid "+C.border2,background:"transparent",color:C.dim,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif"}}>Clear Date</button>}
+        {value&&<button className="tap" onClick={()=>onChange("")}
+          style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:13,padding:"4px 6px",flexShrink:0}}>✕</button>}
+      </div>
+      {/* Current selection display */}
+      {value&&<div style={{fontSize:11,color:C.gold,fontWeight:600,display:"flex",alignItems:"center",gap:5}}>
+        <Icon name="cal" size={11}/>{displayVal}
       </div>}
     </div>
   );
 }
 
+// ── TASK SHEET ────────────────────────────────────────────────────────────────
 function TaskSheet({task,projectId,members,projects,teams,onSave,onClose}){
   const proj=projects.find(p=>p.id===projectId);
   const poolMembers=React.useMemo(()=>{
@@ -830,7 +861,7 @@ function PersonalTasksTab({tasks,projects,session,onUpdateTask}){
   const done=tasks.filter(t=>(t.assigneeIds||[t.assigneeId]).includes(myId)&&t.status==="done").slice(0,10);
   return(<div style={{padding:16,display:"flex",flexDirection:"column",gap:12}}>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-      <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:16,color:C.heading,letterSpacing:0.5}}>My Tasks</span>
+      <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:16,color:C.heading}}>My Tasks</span>
       <span style={{fontSize:12,color:C.muted,background:C.bgTrack,borderRadius:10,padding:"2px 10px"}}>{myTasks.length} open</span>
     </div>
     {!myTasks.length&&<div style={{textAlign:"center",color:C.dim,padding:"36px 0",fontSize:14}}>No open tasks assigned to you 🎉</div>}
@@ -863,30 +894,28 @@ function ProNotesTab({session}){
   return(<div style={{display:"flex",height:"calc(100vh - 160px)",overflow:"hidden"}}>
     <div style={{width:120,borderRight:"1px solid "+C.border2,display:"flex",flexDirection:"column",flexShrink:0}}>
       <div style={{padding:"12px 8px 8px",fontSize:11,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase"}}>Folders</div>
-      {folders.map((f,i)=><button key={f.id} className="tap" onClick={()=>{setSelFolder(i);setSelNote(null);}} style={{textAlign:"left",padding:"8px 10px",background:selFolder===i?C.bgSelected:"transparent",border:"none",color:selFolder===i?C.gold:C.muted,cursor:"pointer",fontSize:12,fontWeight:selFolder===i?700:400,fontFamily:"'Barlow',sans-serif",borderBottom:"1px solid "+C.border2}}>📁 {f.name}</button>)}
+      {folders.map((f,i)=><button key={f.id} className="tap" onClick={()=>{setSelFolder(i);setSelNote(null);}} style={{textAlign:"left",padding:"8px 10px",background:selFolder===i?C.bgSelected:"transparent",border:"none",color:selFolder===i?C.gold:C.muted,cursor:"pointer",fontSize:12,fontWeight:selFolder===i?700:400,borderBottom:"1px solid "+C.border2}}>📁 {f.name}</button>)}
       <button className="tap" onClick={addFolder} style={{margin:"8px",padding:"6px",borderRadius:8,border:"1px dashed "+C.border,background:"transparent",color:C.dim,cursor:"pointer",fontSize:11}}>+ Folder</button>
     </div>
     <div style={{width:160,borderRight:"1px solid "+C.border2,display:"flex",flexDirection:"column",flexShrink:0}}>
       <div style={{padding:"12px 8px 8px",fontSize:11,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase"}}>Notes</div>
-      {folder&&folder.notes.map((n,i)=><button key={n.id} className="tap" onClick={()=>{setSelNote(i);setEditing(false);}} style={{textAlign:"left",padding:"8px 10px",background:selNote===i?C.bgSelected:"transparent",border:"none",color:selNote===i?C.text:C.muted,cursor:"pointer",fontSize:12,fontFamily:"'Barlow',sans-serif",borderBottom:"1px solid "+C.border2}}><div style={{fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{n.title}</div><div style={{fontSize:10,color:C.dim,marginTop:2}}>{new Date(n.updatedAt).toLocaleDateString()}</div></button>)}
+      {folder&&folder.notes.map((n,i)=><button key={n.id} className="tap" onClick={()=>{setSelNote(i);setEditing(false);}} style={{textAlign:"left",padding:"8px 10px",background:selNote===i?C.bgSelected:"transparent",border:"none",color:selNote===i?C.text:C.muted,cursor:"pointer",fontSize:12,borderBottom:"1px solid "+C.border2}}><div style={{fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{n.title}</div><div style={{fontSize:10,color:C.dim,marginTop:2}}>{new Date(n.updatedAt).toLocaleDateString()}</div></button>)}
       <button className="tap" onClick={addNote} style={{margin:"8px",padding:"6px",borderRadius:8,border:"1px dashed "+C.border,background:"transparent",color:C.dim,cursor:"pointer",fontSize:11}}>+ Note</button>
     </div>
     <div style={{flex:1,display:"flex",flexDirection:"column",padding:16,gap:10}}>
-      {note?(<>
-        <div style={{display:"flex",alignItems:"center",gap:8}}>
-          {editing?<input value={note.title} onChange={e=>updateNote("title",e.target.value)} style={{flex:1,fontSize:16,fontWeight:600,background:"transparent",border:"none",color:C.heading,borderBottom:"1px solid "+C.border,padding:"4px 0"}}/>:<div style={{flex:1,fontSize:16,fontWeight:600,color:C.heading}}>{note.title}</div>}
-          <button className="tap" onClick={()=>setEditing(v=>!v)} style={{background:editing?C.gold+"22":"transparent",border:"1px solid "+(editing?C.gold:C.border),borderRadius:8,padding:"4px 10px",color:editing?C.gold:C.muted,cursor:"pointer",fontSize:11}}>{editing?"Done":"Edit"}</button>
-          <button className="tap" onClick={()=>delNote(selNote)} style={{background:"transparent",border:"none",color:C.dim,cursor:"pointer",fontSize:16}}>🗑</button>
-        </div>
-        <textarea value={note.body} onChange={e=>updateNote("body",e.target.value)} readOnly={!editing} style={{flex:1,background:editing?C.bgInput:"transparent",border:editing?"1px solid "+C.border:"none",borderRadius:10,padding:editing?12:0,color:C.text,fontSize:14,lineHeight:1.6,resize:"none",fontFamily:"'Barlow',sans-serif"}} placeholder="Start writing..."/>
-      </>):<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100%",color:C.dim,fontSize:14}}>Select or create a note</div>}
+      {note?(<><div style={{display:"flex",alignItems:"center",gap:8}}>
+        {editing?<input value={note.title} onChange={e=>updateNote("title",e.target.value)} style={{flex:1,fontSize:16,fontWeight:600,background:"transparent",border:"none",color:C.heading,borderBottom:"1px solid "+C.border,padding:"4px 0"}}/>:<div style={{flex:1,fontSize:16,fontWeight:600,color:C.heading}}>{note.title}</div>}
+        <button className="tap" onClick={()=>setEditing(v=>!v)} style={{background:editing?C.gold+"22":"transparent",border:"1px solid "+(editing?C.gold:C.border),borderRadius:8,padding:"4px 10px",color:editing?C.gold:C.muted,cursor:"pointer",fontSize:11}}>{editing?"Done":"Edit"}</button>
+        <button className="tap" onClick={()=>delNote(selNote)} style={{background:"transparent",border:"none",color:C.dim,cursor:"pointer",fontSize:16}}>🗑</button>
+      </div>
+      <textarea value={note.body} onChange={e=>updateNote("body",e.target.value)} readOnly={!editing} style={{flex:1,background:editing?C.bgInput:"transparent",border:editing?"1px solid "+C.border:"none",borderRadius:10,padding:editing?12:0,color:C.text,fontSize:14,lineHeight:1.6,resize:"none",fontFamily:"'Barlow',sans-serif"}} placeholder="Start writing..."/></>)
+      :<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100%",color:C.dim,fontSize:14}}>Select or create a note</div>}
     </div>
   </div>);
 }
 
 function ProTimesheetTab({tasks,projects,session,members}){
-  const today=new Date();
-  const dow=today.getDay();
+  const today=new Date();const dow=today.getDay();
   const sat=new Date(today);sat.setDate(today.getDate()-(dow===6?0:dow+1));
   const weekDays=Array.from({length:7},(_,i)=>{const d=new Date(sat);d.setDate(sat.getDate()+i);return d;});
   const key="ct:ts:"+(session&&session.userId||"anon")+":"+sat.toISOString().slice(0,10);
@@ -907,13 +936,13 @@ function ProTimesheetTab({tasks,projects,session,members}){
       <thead><tr style={{background:C.bgDeep}}>
         <th style={{textAlign:"left",padding:"8px 10px",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1,fontWeight:700,borderBottom:"1px solid "+C.border2,minWidth:140}}>PROJECT</th>
         {weekDays.map((d,i)=>{const isT=d.toDateString()===today.toDateString();return(<th key={i} style={{padding:"8px 6px",color:isT?C.gold:C.dim,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,borderBottom:"1px solid "+C.border2,textAlign:"center",minWidth:55,background:isT?C.gold+"10":"transparent"}}>{d.toLocaleDateString("en-US",{weekday:"short",month:"numeric",day:"numeric"})}</th>);})}
-        <th style={{padding:"8px 6px",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,borderBottom:"1px solid "+C.border2,textAlign:"center",minWidth:55}}>TOTAL</th>
+        <th style={{padding:"8px 6px",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,borderBottom:"1px solid "+C.border2,textAlign:"center"}}>TOTAL</th>
       </tr></thead>
       <tbody>
         {!myProjects.length&&<tr><td colSpan={9} style={{textAlign:"center",padding:"24px",color:C.dim}}>No projects assigned to you</td></tr>}
         {myProjects.map(p=><tr key={p.id} style={{borderBottom:"1px solid "+C.border2}}>
           <td style={{padding:"8px 10px",color:C.text,fontWeight:500}}><div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:140}}>{p.projectNumber&&<span style={{color:C.dim,fontSize:10,marginRight:4}}>{p.projectNumber}</span>}{p.name}</div></td>
-          {weekDays.map((_,i)=><td key={i} style={{padding:"4px",textAlign:"center"}}><input type="number" min="0" max="24" step="0.5" value={hours[p.id+"_"+i]||""} onChange={e=>{const h={...hours,[p.id+"_"+i]:e.target.value};save(h);}} style={{width:48,textAlign:"center",padding:"5px 4px",fontSize:12,background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.text}}/></td>)}
+          {weekDays.map((_,i)=><td key={i} style={{padding:"4px",textAlign:"center"}}><input type="number" min="0" max="24" step="0.5" value={hours[p.id+"_"+i]||""} onChange={e=>{save({...hours,[p.id+"_"+i]:e.target.value});}} style={{width:48,textAlign:"center",padding:"5px 4px",fontSize:12,background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.text}}/></td>)}
           <td style={{padding:"8px 6px",textAlign:"center",fontWeight:700,color:projTotal(p.id)>0?C.gold:C.dim}}>{projTotal(p.id)||"—"}</td>
         </tr>)}
       </tbody>
@@ -929,6 +958,7 @@ function ProTimesheetTab({tasks,projects,session,members}){
 
 function DashboardView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,onSelectProject}){
   const [spaceTab,setSpaceTab]=useState("home");
+
   const today=new Date(); today.setHours(0,0,0,0);
   const coProjects=(selCompany==="all"?projects:projects.filter(p=>p.companyId===selCompany)).filter(p=>p.projectStatus!=="archive");
   const coProjIds=new Set(coProjects.map(p=>p.id));
@@ -993,8 +1023,23 @@ function DashboardView({projects,tasks,members,teams,companies,selCompany,setSel
 
   const timeOfDay=new Date().getHours()<12?"Good morning":new Date().getHours()<17?"Good afternoon":"Good evening";
   const firstName=session.name.split(" ")[0];
-
-  return(<div style={{display:"flex",flexDirection:"column",gap:18}}>
+  return(<div style={{display:"flex",flexDirection:"column",height:"100%",overflow:"hidden"}}>
+    <div style={{display:"flex",borderBottom:"1px solid "+C.border2,flexShrink:0,background:C.bg1}}>
+      {[["home","Overview","🏠"],["tasks","My Tasks","✅"],["notes","Notes","📝"],["time","Timesheet","⏱"]].map(([id,lbl,emoji])=>{
+        const active=spaceTab===id;
+        return(<button key={id} className="tap" onClick={()=>setSpaceTab(id)}
+          style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"9px 4px 7px",
+            background:active?C.gold+"10":"transparent",border:"none",
+            borderBottom:active?"2px solid "+C.gold:"2px solid transparent",
+            color:active?C.gold:C.muted,cursor:"pointer",fontFamily:"'Barlow Condensed',sans-serif",
+            fontWeight:700,fontSize:10,letterSpacing:0.8,textTransform:"uppercase",marginBottom:-1}}>
+          <span style={{fontSize:18,lineHeight:1,filter:active?"saturate(1.2)":"saturate(0.7) opacity(0.7)"}}>{emoji}</span>
+          <span style={{marginTop:1}}>{lbl}</span>
+        </button>);
+      })}
+    </div>
+    <div style={{flex:1,overflowY:"auto"}}>
+      {spaceTab==="home"&&<div style={{display:"flex",flexDirection:"column",gap:18}}>
 
     {/* ── Welcome bar ──────────────────────────────────────────────────────── */}
     <div style={{borderRadius:14,border:"1px solid "+C.gold+"44",background:"linear-gradient(135deg,"+C.gold+"14 0%,"+C.blue+"0a 100%)",padding:"16px 18px"}}>
@@ -1206,32 +1251,20 @@ function DashboardView({projects,tasks,members,teams,companies,selCompany,setSel
       </div>}
     </div>
 
+  </div>}
+      {spaceTab==="tasks"&&<PersonalTasksTab tasks={tasks} projects={projects} members={members} session={session} onUpdateTask={()=>{}}/>}
+      {spaceTab==="notes"&&<ProNotesTab session={session}/>}
+      {spaceTab==="time"&&<ProTimesheetTab tasks={tasks} projects={projects} session={session} members={members}/>}
+    </div>
   </div>);
 }
 
 
-// ── COMPANY SWITCHER — filters Projects, Task List, Teams by firm ─────────────
 function CompanySwitcher({companies,selCompany,setSelCompany}){
   const activeCo=companies.find(c=>c.id===selCompany);
   const activeLogo=activeCo?COMPANY_LOGOS[activeCo.id]:null;
   return(
-    <div style={{display:"flex",flexDirection:"column",height:"100%"}}>
-      <div style={{display:"flex",borderBottom:"1px solid "+C.border2,flexShrink:0,background:C.bg1}}>
-        {[["home","Overview","🏠"],["tasks","My Tasks","✅"],["notes","Notes","📝"],["time","Timesheet","⏱"]].map(([id,lbl,emoji])=>{
-          const active=spaceTab===id;
-          return(<button key={id} className="tap" onClick={()=>setSpaceTab(id)}
-            style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:3,padding:"9px 4px 7px",
-              background:active?C.gold+"10":"transparent",border:"none",
-              borderBottom:active?"2px solid "+C.gold:"2px solid transparent",
-              color:active?C.gold:C.muted,cursor:"pointer",fontFamily:"'Barlow Condensed',sans-serif",
-              fontWeight:700,fontSize:10,letterSpacing:0.8,textTransform:"uppercase",marginBottom:-1}}>
-            <span style={{fontSize:18,lineHeight:1,filter:active?"saturate(1.2)":"saturate(0.7) opacity(0.7)"}}>{emoji}</span>
-            <span style={{marginTop:1}}>{lbl}</span>
-          </button>);
-        })}
-      </div>
-      <div style={{flex:1,overflowY:"auto",padding:"0 0 20px"}}>
-        {spaceTab==="home"&&<div>
+    <div style={{marginBottom:14}}>
       {/* Uniform pill row */}
       <div style={{display:"flex",gap:6,overflowX:"auto",paddingBottom:4,flexShrink:0,WebkitOverflowScrolling:"touch",alignItems:"center"}}>
         <button className="tap" onClick={()=>setSelCompany("all")}
@@ -1262,15 +1295,12 @@ function CompanySwitcher({companies,selCompany,setSelCompany}){
           </div>
         </div>
       )}
-    </div>}
-        {spaceTab==="tasks"&&<PersonalTasksTab tasks={tasks} projects={projects} members={members} session={session} onUpdateTask={()=>{}}/>}
-        {spaceTab==="notes"&&<ProNotesTab session={session}/>}
-        {spaceTab==="time"&&<ProTimesheetTab tasks={tasks} projects={projects} session={session} members={members}/>}
-      </div>
     </div>
   );
 }
 
+// ── PROJECT LIST VIEW ─────────────────────────────────────────────────────────
+// ── PROJECT LIST VIEW ─────────────────────────────────────────────────────────
 function ProjectListView({projects,tasks,members,teams,companies,selCompany,setSelCompany,
   onSelectProject,onAddProject,onDelProject,onUpdateTask,onAddTask,onUpdateProject,canEdit}){
 
@@ -1687,7 +1717,7 @@ function ProjectDetailView({project,tasks,members,teams,companies,projects,onBac
           {(task.subtasks||[]).length>0&&<div style={{fontSize:10,color:C.dim,marginTop:2}}>☐ {sub}/{task.subtasks.length}</div>}
         </div>
         <div style={{width:34,display:"flex",justifyContent:"center",flexShrink:0}}>{m?<Av initials={m.avatar} color={mt?mt.color:C.blue} size={24}/>:<span style={{color:C.border,fontSize:18}}>◯</span>}</div>
-        <div style={{width:100,display:"flex",justifyContent:"center",flexShrink:0}} onClick={e=>e.stopPropagation()}><DueDatePicker value={task.dueDate||""} onChange={v=>onUpdateTask({...task,dueDate:v})}/></div>
+        <div style={{width:70,textAlign:"center",fontSize:11,color:od?C.red:task.dueDate?C.muted:C.dim,fontWeight:od?600:400,flexShrink:0}}>{task.dueDate?fmtShort(task.dueDate):"—"}</div>
         <div style={{width:30,display:"flex",justifyContent:"center",flexShrink:0}}><FlagIcon priority={task.priority}/></div>
       </div>
       <div style={{display:"flex",padding:"0 12px 5px 38px",gap:14}}>
@@ -1855,7 +1885,7 @@ function ProjectSheet({project,teams,companies,members,onClose,onSave}){
 }
 
 // ── TASK LIST VIEW — grouped by department, then time within each ─────────────
-function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelCompany,session,onUpdateTask,batchUpTask}){
+function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelCompany,session,onUpdateTask}){
   const [taskSheet,setTaskSheet]=useState(null);
   const [schedSheet,setSchedSheet]=useState(null);
   const [collapsed,setCollapsed]=useState({done:true});
@@ -1865,9 +1895,6 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
   const [filterStatus,setFilterStatus]=useState("all");
   const [filterProject,setFilterProject]=useState("all");
   const [showFilters,setShowFilters]=useState(false);
-  const [sortCol,setSortCol]=useState("due");
-  const [sortDir,setSortDir]=useState("asc");
-  const doSort=(col)=>{if(sortCol===col){setSortDir(d=>d==="asc"?"desc":"asc");}else{setSortCol(col);setSortDir("asc");}};
   const isAdmin=session&&session.role==="admin";
 
   const getTaskAssigneeIds=(task)=>task.assigneeIds||(task.assigneeId?[task.assigneeId]:[]);
@@ -1900,7 +1927,6 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
 
   const activeFilters=(filterMember!=="all"?1:0)+(filterPriority!=="all"?1:0)+(filterStatus!=="all"?1:0)+(filterProject!=="all"?1:0)+(search?1:0);
 
-  const sortTasks=(arr)=>[...arr].sort((a,b)=>{let v=0;if(sortCol==="title")v=(a.title||"").localeCompare(b.title||"");else if(sortCol==="due")v=((a.dueDate||"9999")>(b.dueDate||"9999")?1:(a.dueDate||"9999")<(b.dueDate||"9999")?-1:0);else if(sortCol==="who"){const an=(a.assigneeIds||[a.assigneeId]).map(id=>members.find(m=>m.id===id)?.name||"").join(",");const bn=(b.assigneeIds||[b.assigneeId]).map(id=>members.find(m=>m.id===id)?.name||"").join(",");v=an.localeCompare(bn);}return sortDir==="asc"?v:-v;});
   const active=base.filter(t=>t.status!=="done");
   const doneItems=base.filter(t=>t.status==="done");
   const grouped=useMemo(()=>{
@@ -1919,12 +1945,11 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
     </div>);
   };
 
-  const SHdr=({col,width,flex,center,children})=>{const act=sortCol===col;return(<div onClick={()=>doSort(col)} style={{width,flex,flexShrink:flex?undefined:0,fontSize:10,letterSpacing:1.5,textTransform:"uppercase",color:act?C.gold:C.dim,fontFamily:"'Barlow Condensed',sans-serif",cursor:"pointer",userSelect:"none",display:"flex",alignItems:"center",gap:3,justifyContent:center?"center":"flex-start"}}>{children}{act&&<span style={{fontSize:11,color:C.gold,fontWeight:700}}>{sortDir==="asc"?"↑":"↓"}</span>}</div>);};
   const ColHdr=()=><div style={{display:"flex",alignItems:"center",padding:"5px 12px",borderBottom:"1px solid "+C.border2,background:C.bgDeep}}>
     <div style={{width:26,flexShrink:0}}/>
-    <SHdr col="title" flex={1}>Task Name</SHdr>
-    <SHdr col="who" width={46} center>Who</SHdr>
-    <SHdr col="due" width={100} center>Due Date</SHdr>
+    <div style={{flex:1,fontSize:10,letterSpacing:2,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Task Name</div>
+    <div style={{width:46,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Who</div>
+    <div style={{width:70,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Due Date</div>
     <div style={{width:26}}/>
   </div>;
 
@@ -1948,7 +1973,7 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
           <div style={{fontSize:13,fontWeight:500,color:od?C.red:task.status==="done"?C.dim:C.text,textDecoration:task.status==="done"?"line-through":"none",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{task.title}</div>
         </div>
         <div style={{width:46,display:"flex",justifyContent:"center",flexShrink:0}}><AssigneeAvatars ids={taskIds}/></div>
-        <div style={{width:100,display:"flex",justifyContent:"center",flexShrink:0}} onClick={e=>e.stopPropagation()}><DueDatePicker value={task.dueDate||""} onChange={v=>onUpdateTask({...task,dueDate:v})}/></div>
+        <div style={{width:70,textAlign:"center",fontSize:11,color:od?C.red:task.dueDate?C.muted:C.dim,fontWeight:od?600:400,flexShrink:0}}>{task.dueDate?fmtShort(task.dueDate):"—"}</div>
         <div style={{width:26,display:"flex",justifyContent:"center",flexShrink:0}}><FlagIcon priority={task.priority}/></div>
       </div>
       <div style={{padding:"0 12px 5px 38px"}}>
@@ -2008,14 +2033,13 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
       </div>}
     </div>
     {TIME_GROUPS.map(({id,label,color})=>{
-      const grpTasks=sortTasks(grouped[id]||[]);if(!grpTasks.length)return null;
+      const grpTasks=grouped[id]||[];if(!grpTasks.length)return null;
       const isCol=collapsed[id];
       return(<div key={id} style={{background:C.bg2,border:"1px solid "+(id==="overdue"?C.red+"44":C.border),borderRadius:11,overflow:"hidden"}}>
         <div className="rt" onClick={()=>toggle(id)} style={{display:"flex",alignItems:"center",gap:9,padding:"10px 13px",background:C.bgDeep,cursor:"pointer",borderBottom:isCol?"none":"1px solid "+C.border2}}>
           <div style={{color:C.muted,transition:"transform 0.14s",transform:isCol?"rotate(0deg)":"rotate(90deg)"}}><Icon name="chev" size={13}/></div>
           <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:13,color,letterSpacing:0.5}}>{label}</span>
           <span style={{fontSize:13,color:C.muted,fontWeight:600,background:C.bgTrack,borderRadius:10,padding:"1px 8px"}}>{grpTasks.length}</span>
-          {id==="overdue"&&<button className="tap" onClick={e=>{e.stopPropagation();const td=new Date().toISOString().slice(0,10);if(batchUpTask){batchUpTask(grpTasks.map(t=>({...t,dueDate:td})));}else{grpTasks.forEach(t=>onUpdateTask({...t,dueDate:td}));}}} style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:5,padding:"5px 11px",borderRadius:8,border:"1px solid "+C.red+"55",background:C.red+"12",color:C.red,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",flexShrink:0}}><Icon name="cal" size={12}/>Reschedule All → Today</button>}
         </div>
         {!isCol&&<div className="expand"><ColHdr/>{grpTasks.map(t=><TaskRow key={t.id} task={t}/>)}</div>}
       </div>);
@@ -2036,7 +2060,7 @@ function TeamsView({teams,members,tasks,projects,companies,selCompany,setSelComp
   },[selCompany,teams]);
   const [ts,setTs]=useState(null);const [ms,setMs]=useState(null);const [cT,setCT]=useState(null);const [cM,setCM]=useState(null);
   const team=teams.find(t=>t.id===sel);const tm=members.filter(m=>m.teamId===sel);
-  const saveT=(next)=>{setTeams(next);LS.set(SK.teams,next);};const saveM=(next)=>{setMembers(next);LS.set(SK.members,next);};
+  const saveT=(next)=>{setTeams(next);window.fbSet('teams',next);};const saveM=(next)=>{setMembers(next);window.fbSet('members',next);};
 
   function TeamSh({et,onClose}){
     const mi=et?members.filter(m=>m.teamId===et.id):[];
@@ -2536,7 +2560,7 @@ function MemberSummaryBar({memberId,members,teams,projects,tasks,companies}){
   );
 }
 
-function CivilView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,canEdit,onSelectProject,onAddProject,onDelProject,onUpdateTask,batchUpTask,onAddTask,onDelTask,onUpdateProject}){
+function CivilView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,canEdit,onSelectProject,onAddProject,onDelProject,onUpdateTask,onAddTask,onDelTask,onUpdateProject}){
   const [sub,setSub]=useState("projects");
   const [selMember,setSelMember]=useState(null);
 
@@ -2595,7 +2619,7 @@ function CivilView({projects,tasks,members,teams,companies,selCompany,setSelComp
       tasks={scopedTasks} projects={projects} members={members} teams={teams}
       companies={companies} selCompany={selCompany} setSelCompany={setSelCompany}
       session={session}
-      onUpdateTask={onUpdateTask} batchUpTask={batchUpTask}/>}
+      onUpdateTask={onUpdateTask}/>}
     {sub==="calendar"&&<MonthCalendar projects={projects} tasks={tasks} onSelectProject={id=>{onSelectProject(id);}} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany}/>}
   </div>);
 }
@@ -2632,27 +2656,28 @@ function App(){
   const [selCompany,setSelCompany]=useState("all"); // "all" or a companyId
 
   useEffect(()=>{
-    // If data version doesn't match, wipe all app data and re-seed
-    const storedVer=LS.get(SK.ver);
-    if(storedVer!==DATA_VERSION){
-      [SK.companies,SK.teams,SK.users,SK.members,SK.projects,SK.tasks].forEach(k=>LS.del(k));
-      LS.set(SK.ver,DATA_VERSION);
-    }
-    let co=LS.get(SK.companies);if(!co){co=SEED_COMPANIES;LS.set(SK.companies,co);}setCompanies(co);
-    let tm=LS.get(SK.teams);   if(!tm){tm=SEED_TEAMS;   LS.set(SK.teams,tm);}   setTeams(tm);
-    let u=LS.get(SK.users);    if(!u) {u=SEED_USERS;    LS.set(SK.users,u);}    setUsers(u);
-    let m=LS.get(SK.members);  if(!m) {m=SEED_MEMBERS;  LS.set(SK.members,m);}  setMembers(m);
-    let p=LS.get(SK.projects); if(!p) {p=SEED_PROJECTS; LS.set(SK.projects,p);} setProjects(p);
-    let t=LS.get(SK.tasks);    if(!t) {t=SEED_TASKS;    LS.set(SK.tasks,t);}    setTasks(t);
     const s=LS.get(SK.session);if(s)setSession(s);
+    let co=LS.get(SK.companies);if(!co){co=SEED_COMPANIES;}setCompanies(co);
+    let tm=LS.get(SK.teams);if(!tm){tm=SEED_TEAMS;}setTeams(tm);
+    let u=LS.get(SK.users);if(!u){u=SEED_USERS;}setUsers(u);
+    let m=LS.get(SK.members);if(!m){m=SEED_MEMBERS;}setMembers(m);
+    let p=LS.get(SK.projects);if(!p){p=SEED_PROJECTS;}setProjects(p);
+    let t=LS.get(SK.tasks);if(!t){t=SEED_TASKS||[];}setTasks(t);
     setBooting(false);
+    const uns=[];
+    uns.push(window.fbOn("companies",v=>{if(!v||!Array.isArray(v)||v.length<SEED_COMPANIES.length){window.fbSet("companies",SEED_COMPANIES);setCompanies(SEED_COMPANIES);}else{setCompanies(v);LS.set(SK.companies,v);}}));
+    uns.push(window.fbOn("teams",v=>{if(!v||!Array.isArray(v)||v.length<SEED_TEAMS.length){window.fbSet("teams",SEED_TEAMS);setTeams(SEED_TEAMS);}else{setTeams(v);LS.set(SK.teams,v);}}));
+    uns.push(window.fbOn("users",v=>{if(!v||!Array.isArray(v)||v.length<SEED_USERS.length){window.fbSet("users",SEED_USERS);setUsers(SEED_USERS);}else{setUsers(v);LS.set(SK.users,v);}}));
+    uns.push(window.fbOn("members",v=>{if(!v||!Array.isArray(v)||v.length<SEED_MEMBERS.length){window.fbSet("members",SEED_MEMBERS);setMembers(SEED_MEMBERS);}else{setMembers(v);LS.set(SK.members,v);}}));
+    uns.push(window.fbOn("projects",v=>{if(!v||!Array.isArray(v)||v.length<SEED_PROJECTS.length){window.fbSet("projects",SEED_PROJECTS);setProjects(SEED_PROJECTS);}else{setProjects(v);LS.set(SK.projects,v);}}));
+    uns.push(window.fbOn("tasks",v=>{const td=v&&Array.isArray(v)?v:(SEED_TASKS||[]);setTasks(td);LS.set(SK.tasks,td);}));
+    return()=>uns.forEach(u=>u&&u());
   },[]);
 
   const logout=()=>{LS.del(SK.session);setSession(null);};
-  const saveP=(p)=>{setProjects(p);LS.set(SK.projects,p);};
-  const saveT=(t)=>{setTasks(t);LS.set(SK.tasks,t);};
+  const saveP=(p)=>{setProjects(p);LS.set(SK.projects,p);window.fbSet('projects',p);};
+  const saveT=(t)=>{setTasks(t);LS.set(SK.tasks,t);window.fbSet('tasks',t);};
   const upTask=(u)=>saveT(tasks.map(t=>t.id===u.id?u:t));
-  const batchUpTask=(updates)=>{const map=Object.fromEntries(updates.map(u=>[u.id,u]));saveT(tasks.map(t=>map[t.id]?{...t,...map[t.id]}:t));};
 
   const isAdmin=session&&session.role==="admin";
   const isLeader=session&&session.role==="leader";
@@ -2705,9 +2730,9 @@ function App(){
   const pageTitle=()=>{if(detailMode&&selProj)return selProj.name;const co=companies.find(c=>c.id===selCompany);const suffix=co?" · "+co.short:"";const base={home:"Overview",civil:"Civil",survey:"Survey",teams:"Teams",accounts:"Accounts"}[tab]||"";return base+suffix;};
 
   const main=()=>{
-    if(detailMode&&selProj)return <ProjectDetailView project={selProj} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} projects={visibleProjects} canEdit={hasEditAccess} onBack={()=>{setDetailMode(false);setSelProjId(null);}} onUpdateTask={upTask} batchUpTask={batchUpTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))}/>;
+    if(detailMode&&selProj)return <ProjectDetailView project={selProj} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} projects={visibleProjects} canEdit={hasEditAccess} onBack={()=>{setDetailMode(false);setSelProjId(null);}} onUpdateTask={upTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))}/>;
     if(tab==="home")     return <DashboardView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);setTab("civil");}}/>;
-    if(tab==="civil")    return <CivilView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} canEdit={hasEditAccess} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);}} onAddProject={p=>saveP([...projects,p])} onDelProject={id=>{saveP(projects.filter(p=>p.id!==id));saveT(tasks.filter(t=>t.projectId!==id));}} onUpdateTask={upTask} batchUpTask={batchUpTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))}/>;
+    if(tab==="civil")    return <CivilView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} canEdit={hasEditAccess} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);}} onAddProject={p=>saveP([...projects,p])} onDelProject={id=>{saveP(projects.filter(p=>p.id!==id));saveT(tasks.filter(t=>t.projectId!==id));}} onUpdateTask={upTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))}/>;
     if(tab==="teams")    return <TeamsView teams={teams} members={visibleMembers} tasks={visibleTasks} projects={visibleProjects} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} setTeams={setTeams} setMembers={setMembers}/>;
     if(tab==="accounts"&&isAdmin) return <UsersView members={members} teams={teams} companies={companies} users={users} setUsers={setUsers}/>;
     return null;
@@ -2779,12 +2804,12 @@ function App(){
                   const data=JSON.parse(ev.target.result);
                   if(data.version!=="ct-export-v1"){alert("Unrecognised backup file.");return;}
                   if(!window.confirm(`Restore backup from ${data.exportedAt?.slice(0,10)||"unknown date"}?\n\nThis will REPLACE all current data.`))return;
-                  if(data.companies)LS.set(SK.companies,data.companies);
-                  if(data.teams)LS.set(SK.teams,data.teams);
-                  if(data.members)LS.set(SK.members,data.members);
-                  if(data.users)LS.set(SK.users,data.users);
-                  if(data.projects)LS.set(SK.projects,data.projects);
-                  if(data.tasks)LS.set(SK.tasks,data.tasks);
+                  if(data.companies)window.fbSet('companies',data.companies);
+                  if(data.teams)window.fbSet('teams',data.teams);
+                  if(data.members)window.fbSet('members',data.members);
+                  if(data.users)window.fbSet('users',data.users);
+                  if(data.projects)window.fbSet('projects',data.projects);
+                  if(data.tasks)window.fbSet('tasks',data.tasks);
                   // Keep current version so it doesn't wipe on reload
                   LS.set(SK.ver,DATA_VERSION);
                   window.location.reload();
