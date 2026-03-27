@@ -582,8 +582,8 @@ function Icon({name,size}){
 function Pill({color,bg,children,small}){return <span style={{display:"inline-flex",alignItems:"center",gap:3,padding:small?"2px 7px":"3px 9px",borderRadius:20,fontSize:small?10:11,fontWeight:600,color,background:bg,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:0.5,whiteSpace:"nowrap"}}>{children}</span>;}
 function ProjNum({num}){return <span style={{display:"inline-flex",alignItems:"center",gap:3,padding:"2px 7px",borderRadius:5,fontSize:10,fontWeight:700,color:"#7a9db5",background:C.bgTrack,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1,border:"1px solid #1e3248",whiteSpace:"nowrap",flexShrink:0}}>{num}</span>;}
 function Av({initials:ini,color,size}){const sz=size||28,col=color||C.gold;return <div style={{width:sz,height:sz,borderRadius:"50%",background:col+"22",border:"1.5px solid "+col+"66",display:"flex",alignItems:"center",justifyContent:"center",fontSize:sz>30?12:10,fontWeight:700,color:col,flexShrink:0,fontFamily:"'Barlow Condensed',sans-serif"}}>{ini}</div>;}
-function Sheet({title,onClose,children}){return(<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.72)",zIndex:200,display:"flex",flexDirection:"column",justifyContent:"flex-end"}} onClick={e=>e.target===e.currentTarget&&onClose()}><div className="sheet" style={{background:"#0f1e2e",borderRadius:"20px 20px 0 0",border:"1px solid #1e3248",borderBottom:"none",maxHeight:"92vh",display:"flex",flexDirection:"column",paddingBottom:"env(safe-area-inset-bottom)"}}><div style={{display:"flex",justifyContent:"center",padding:"10px 0 4px"}}><div style={{width:36,height:4,borderRadius:2,background:"#1e3248"}}/></div><div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"6px 20px 12px"}}><span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:18,letterSpacing:0.5,color:C.heading}}>{title}</span><button className="tap" onClick={onClose} style={{background:C.bgInput,border:"none",borderRadius:20,width:32,height:32,display:"flex",alignItems:"center",justifyContent:"center",color:C.muted,cursor:"pointer"}}><Icon name="x" size={16}/></button></div><div style={{overflowY:"auto",padding:"0 20px 20px"}}>{children}</div></div></div>);}
-function Confirm({message,onYes,onNo}){return(<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:300,display:"flex",alignItems:"flex-end"}}><div className="sheet" style={{background:"#0f1e2e",borderRadius:"16px 16px 0 0",border:"1px solid #1e3248",width:"100%",padding:"20px 20px calc(20px + env(safe-area-inset-bottom))"}}><div style={{fontSize:15,color:C.text,marginBottom:20,textAlign:"center",lineHeight:1.5}}>{message}</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}><button className="tap" onClick={onNo} style={{padding:"14px",background:C.bgInput,border:"1px solid "+C.border,borderRadius:12,color:C.muted,fontSize:15,fontFamily:"'Barlow',sans-serif",fontWeight:600,cursor:"pointer"}}>Cancel</button><button className="tap" onClick={onYes} style={{padding:"14px",background:"rgba(224,90,78,0.2)",border:"1px solid rgba(224,90,78,0.4)",borderRadius:12,color:C.red,fontSize:15,fontFamily:"'Barlow',sans-serif",fontWeight:600,cursor:"pointer"}}>Delete</button></div></div></div>);}
+function Sheet({title,onClose,children}){return(<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.72)",zIndex:200,display:"flex",flexDirection:"column",justifyContent:"flex-end"}} onClick={e=>e.target===e.currentTarget&&onClose()}><div className="sheet" style={{background:C.bg2,borderRadius:"20px 20px 0 0",border:"1px solid "+C.border,borderBottom:"none",maxHeight:"92vh",display:"flex",flexDirection:"column",paddingBottom:"env(safe-area-inset-bottom)"}}><div style={{display:"flex",justifyContent:"center",padding:"10px 0 4px"}}><div style={{width:36,height:4,borderRadius:2,background:C.border}}/></div><div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"6px 20px 12px"}}><span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:18,letterSpacing:0.5,color:C.heading}}>{title}</span><button className="tap" onClick={onClose} style={{background:C.bgInput,border:"none",borderRadius:20,width:32,height:32,display:"flex",alignItems:"center",justifyContent:"center",color:C.muted,cursor:"pointer"}}><Icon name="x" size={16}/></button></div><div style={{overflowY:"auto",padding:"0 20px 20px"}}>{children}</div></div></div>);}
+function Confirm({message,onYes,onNo}){return(<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",zIndex:300,display:"flex",alignItems:"flex-end"}}><div className="sheet" style={{background:C.bg2,borderRadius:"16px 16px 0 0",border:"1px solid "+C.border,width:"100%",padding:"20px 20px calc(20px + env(safe-area-inset-bottom))"}}><div style={{fontSize:15,color:C.text,marginBottom:20,textAlign:"center",lineHeight:1.5}}>{message}</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}><button className="tap" onClick={onNo} style={{padding:"14px",background:C.bgInput,border:"1px solid "+C.border,borderRadius:12,color:C.muted,fontSize:15,fontFamily:"'Barlow',sans-serif",fontWeight:600,cursor:"pointer"}}>Cancel</button><button className="tap" onClick={onYes} style={{padding:"14px",background:"rgba(224,90,78,0.2)",border:"1px solid rgba(224,90,78,0.4)",borderRadius:12,color:C.red,fontSize:15,fontFamily:"'Barlow',sans-serif",fontWeight:600,cursor:"pointer"}}>Delete</button></div></div></div>);}
 function Btn({onClick,children,disabled,full,danger,ghost}){return <button className="tap" onClick={onClick} disabled={disabled} style={{padding:"13px 20px",borderRadius:12,border:ghost?"1px solid "+C.border:"none",cursor:disabled?"not-allowed":"pointer",fontSize:15,fontWeight:600,fontFamily:"'Barlow',sans-serif",background:disabled?"#1a2a3a":danger?"rgba(224,90,78,0.2)":ghost?"transparent":C.gold,color:disabled?C.muted:danger?C.red:ghost?C.muted:C.bg0,width:full?"100%":"auto",opacity:disabled?0.6:1}}>{children}</button>;}
 function FF({label,children}){return <div style={{display:"flex",flexDirection:"column",gap:8}}><label style={{fontSize:11,letterSpacing:2,textTransform:"uppercase",color:C.muted,fontFamily:"'Barlow Condensed',sans-serif"}}>{label}</label>{children}</div>;}
 function PriPicker({value,onChange}){return <div style={{display:"flex",gap:8}}>{[["low","Low","▽"],["medium","Normal","—"],["high","High","▲"]].map(([k,lbl,ic])=><button key={k} className="tap" onClick={()=>onChange(k)} style={{flex:1,padding:"10px 6px",borderRadius:10,border:"1.5px solid "+(value===k?PC[k].color:C.border),background:value===k?PC[k].color+"18":"transparent",color:value===k?PC[k].color:C.muted,cursor:"pointer",fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:14,display:"flex",flexDirection:"column",alignItems:"center",gap:3}}><span style={{fontSize:15}}>{ic}</span>{lbl}</button>)}</div>;}
@@ -603,58 +603,116 @@ function FileAttachments({taskId}){
 
 // ── DUE DATE PICKER — quick presets + calendar ────────────────────────────────
 function DueDatePicker({value,onChange}){
+  const [open,setOpen]=useState(false);
+  const [popPos,setPopPos]=useState({top:0,left:0});
+  const [calMonth,setCalMonth]=useState(()=>{
+    if(value){const d=new Date(value+"T00:00:00");return new Date(d.getFullYear(),d.getMonth(),1);}
+    return new Date(new Date().getFullYear(),new Date().getMonth(),1);
+  });
+  const ref=React.useRef(null);
+  const btnRef=React.useRef(null);
   const today=new Date();today.setHours(0,0,0,0);
-  const fmt=(d)=>{
-    const y=d.getFullYear();
-    const m=String(d.getMonth()+1).padStart(2,"0");
-    const day=String(d.getDate()).padStart(2,"0");
-    return y+"-"+m+"-"+day;
-  };
+  const fmt=(d)=>{const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,"0");const day=String(d.getDate()).padStart(2,"0");return y+"-"+m+"-"+day;};
   const addDays=(n)=>{const d=new Date(today);d.setDate(d.getDate()+n);return fmt(d);};
   const addMonths=(n)=>{const d=new Date(today);d.setMonth(d.getMonth()+n);return fmt(d);};
-  const presets=[
-    {label:"Tomorrow",  val:()=>addDays(1)},
-    {label:"1 Week",    val:()=>addDays(7)},
-    {label:"2 Weeks",   val:()=>addDays(14)},
-    {label:"1 Month",   val:()=>addMonths(1)},
-    {label:"2 Months",  val:()=>addMonths(2)},
-  ];
-  const displayVal=value?new Date(value+"T00:00:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"}):"No date set";
-  const isPreset=(v)=>presets.some(p=>p.val()===v);
+  const presets=[{label:"Tomorrow",val:addDays(1)},{label:"1 Week",val:addDays(7)},{label:"1 Month",val:addMonths(1)},{label:"2 Months",val:addMonths(2)}];
+  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const DAYS=["Su","Mo","Tu","We","Th","Fr","Sa"];
+  const yr=calMonth.getFullYear(),mo=calMonth.getMonth();
+  const firstDay=new Date(yr,mo,1).getDay();
+  const daysInMo=new Date(yr,mo+1,0).getDate();
+  const weeks=[];let wk=new Array(firstDay).fill(null);
+  for(let d=1;d<=daysInMo;d++){wk.push(d);if(wk.length===7){weeks.push(wk);wk=[];}}
+  if(wk.length)weeks.push([...wk,...new Array(7-wk.length).fill(null)]);
+  const pick=(ymd)=>{onChange(ymd);setOpen(false);};
+  const selD=value?new Date(value+"T00:00:00"):null;
+  const isOD=selD&&selD<today;
+  const displayVal=selD?selD.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"Set date";
+
+  const openPicker=()=>{
+    if(btnRef.current){
+      const r=btnRef.current.getBoundingClientRect();
+      const popW=280,popH=360;
+      let top=r.top-30;
+      let left=r.left-popW-160;
+      if(left<10)left=r.right+8;
+      if(top+popH>window.innerHeight-10)top=window.innerHeight-popH-10;
+      if(top<10)top=10;
+      setPopPos({top,left});
+    }
+    setOpen(v=>!v);
+  };
+
+  React.useEffect(()=>{
+    if(!open)return;
+    const h=(e)=>{if(ref.current&&!ref.current.contains(e.target)&&btnRef.current&&!btnRef.current.contains(e.target))setOpen(false);};
+    document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);
+  },[open]);
   return(
-    <div style={{display:"flex",flexDirection:"column",gap:8}}>
-      {/* Preset buttons */}
-      <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
-        {presets.map(p=>{
-          const pv=p.val();
-          const active=value===pv;
-          return(
-            <button key={p.label} className="tap" onClick={()=>onChange(active?"":pv)}
-              style={{padding:"6px 12px",borderRadius:20,border:"1px solid "+(active?C.gold+"88":C.border),
-                background:active?"rgba(232,160,32,0.15)":"transparent",
-                color:active?C.gold:C.muted,
-                cursor:"pointer",fontSize:12,fontWeight:600,
-                fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:0.3,
-                transition:"all 0.12s"}}>
+    <div style={{position:"relative",display:"inline-block",width:"100%"}}>
+      <button ref={btnRef} className="tap" onClick={openPicker}
+        style={{display:"flex",alignItems:"center",gap:6,padding:"6px 10px",borderRadius:8,
+          border:"1px solid "+(isOD?C.red+"88":value?C.gold+"88":C.border),
+          background:isOD?C.red+"14":value?C.gold+"14":C.bgInput,
+          color:isOD?C.red:value?C.gold:C.muted,cursor:"pointer",fontSize:12,fontWeight:600,
+          fontFamily:"'Barlow Condensed',sans-serif",whiteSpace:"nowrap",width:"100%",justifyContent:"space-between"}}>
+        <div style={{display:"flex",alignItems:"center",gap:5}}><Icon name="cal" size={13}/><span>{displayVal}</span></div>
+        {value&&<span onClick={e=>{e.stopPropagation();onChange("");setOpen(false);}} style={{color:C.dim,fontSize:15,lineHeight:1,cursor:"pointer"}}>×</span>}
+      </button>
+      {open&&<div ref={ref} style={{position:"fixed",zIndex:9999,background:C.bg1,border:"1px solid "+C.border,borderRadius:14,
+          boxShadow:"0 8px 32px rgba(0,0,0,0.4)",padding:14,width:280,top:popPos.top,left:popPos.left}}>
+        {/* Presets */}
+        <div style={{display:"flex",gap:5,marginBottom:12,flexWrap:"wrap"}}>
+          {presets.map(p=>{const active=value===p.val;return(
+            <button key={p.label} className="tap" onClick={()=>pick(p.val)}
+              style={{flex:1,padding:"7px 4px",borderRadius:8,border:"1px solid "+(active?C.gold+"88":C.border2),
+                background:active?C.gold+"18":C.bgInput,color:active?C.gold:C.muted,cursor:"pointer",
+                fontSize:11,fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif",textAlign:"center"}}>
               {p.label}
-            </button>
-          );
-        })}
-      </div>
-      {/* Calendar input row */}
-      <div style={{display:"flex",alignItems:"center",gap:8}}>
-        <div style={{position:"relative",flex:1}}>
-          <span style={{position:"absolute",left:12,top:"50%",transform:"translateY(-50%)",color:C.dim,pointerEvents:"none"}}><Icon name="cal" size={15}/></span>
-          <input type="date" value={value||""} onChange={e=>onChange(e.target.value)}
-            style={{paddingLeft:38,fontSize:13}}
-            min={fmt(new Date(today.getTime()+86400000))}/>
+            </button>);})}
         </div>
-        {value&&<button className="tap" onClick={()=>onChange("")}
-          style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:13,padding:"4px 6px",flexShrink:0}}>✕</button>}
-      </div>
-      {/* Current selection display */}
-      {value&&<div style={{fontSize:11,color:C.gold,fontWeight:600,display:"flex",alignItems:"center",gap:5}}>
-        <Icon name="cal" size={11}/>{displayVal}
+        {/* Month nav */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}>
+          <button className="tap" onClick={()=>setCalMonth(m=>{const d=new Date(m);d.setMonth(d.getMonth()-1);return d;})}
+            style={{background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.muted,cursor:"pointer",fontSize:16,padding:"2px 10px",lineHeight:1}}>‹</button>
+          <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:14,color:C.heading}}>{MONTHS[mo]} {yr}</span>
+          <button className="tap" onClick={()=>setCalMonth(m=>{const d=new Date(m);d.setMonth(d.getMonth()+1);return d;})}
+            style={{background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.muted,cursor:"pointer",fontSize:16,padding:"2px 10px",lineHeight:1}}>›</button>
+        </div>
+        {/* Day headers */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",marginBottom:4}}>
+          {DAYS.map(d=><div key={d} style={{textAlign:"center",fontSize:9,fontWeight:700,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",padding:"2px 0"}}>{d}</div>)}
+        </div>
+        {/* Calendar grid */}
+        {weeks.map((wk,wi)=>(
+          <div key={wi} style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:2,marginBottom:2}}>
+            {wk.map((d,di)=>{
+              if(!d)return<div key={di}/>;
+              const cellDate=new Date(yr,mo,d);cellDate.setHours(0,0,0,0);
+              const ymd=fmt(cellDate);
+              const isToday=cellDate.getTime()===today.getTime();
+              const isSel=value===ymd;
+              const isPast=cellDate<today;
+              return(<button key={di} className="tap" onClick={()=>pick(ymd)}
+                style={{padding:"6px 0",borderRadius:7,border:"none",
+                  background:isSel?C.gold:isToday?C.blue+"33":C.bgInput,
+                  color:isSel?C.bg0:isToday?C.blue:isPast?C.dim:C.text,
+                  fontWeight:isSel||isToday?700:400,fontSize:12,cursor:"pointer",textAlign:"center"}}>
+                {d}
+              </button>);
+            })}
+          </div>
+        ))}
+        <div style={{display:"flex",gap:8,marginTop:10}}>
+          {value&&<button className="tap" onClick={()=>{onChange("");setOpen(false);}}
+            style={{flex:1,padding:"7px",borderRadius:8,border:"1px solid "+C.border2,
+              background:C.bgInput,color:C.dim,cursor:"pointer",fontSize:11,fontWeight:700,
+              fontFamily:"'Barlow Condensed',sans-serif"}}>Clear Date</button>}
+          <button className="tap" onClick={()=>setOpen(false)}
+            style={{flex:1,padding:"7px",borderRadius:8,border:"1px solid "+C.border2,
+              background:C.bgInput,color:C.muted,cursor:"pointer",fontSize:11,fontWeight:700,
+              fontFamily:"'Barlow Condensed',sans-serif"}}>Close</button>
+        </div>
       </div>}
     </div>
   );
@@ -855,21 +913,94 @@ function LoginScreen({onLogin}){
 
 // ── DASHBOARD ─────────────────────────────────────────────────────────────────
 
-function PersonalTasksTab({tasks,projects,session,onUpdateTask}){
+
+class TabErrorBoundary extends React.Component {
+  constructor(props){super(props);this.state={err:null};}
+  static getDerivedStateFromError(e){return{err:e};}
+  render(){
+    if(this.state.err)return(
+      <div style={{padding:20,color:"white",background:"#0b1622",fontFamily:"monospace",fontSize:13}}>
+        <div style={{color:"#e8a020",fontWeight:700,marginBottom:8}}>Tab Error</div>
+        <div style={{color:"#e05a4e",marginBottom:6}}>{this.state.err.message}</div>
+        <div style={{color:"#4a7a9a",fontSize:11,whiteSpace:"pre-wrap"}}>{(this.state.err.stack||"").slice(0,400)}</div>
+      </div>
+    );
+    return this.props.children;
+  }
+}
+
+function PersonalTasksTab({tasks,projects,session,onUpdateTask,onAddTask}){
   const myId=session&&session.memberId;
+  const [showAdd,setShowAdd]=useState(false);
+  const [form,setForm]=useState({title:"",projectId:"",dueDate:"",priority:"medium"});
   const myTasks=tasks.filter(t=>(t.assigneeIds||[t.assigneeId]).includes(myId)&&t.status!=="done").sort((a,b)=>(a.dueDate||"9999").localeCompare(b.dueDate||"9999"));
   const done=tasks.filter(t=>(t.assigneeIds||[t.assigneeId]).includes(myId)&&t.status==="done").slice(0,10);
+  const addTask=()=>{
+    if(!form.title.trim())return;
+    const t={id:uid(),title:form.title.trim(),projectId:form.projectId||null,dueDate:form.dueDate||null,
+      priority:form.priority,status:"todo",assigneeIds:[myId],assigneeId:myId,subtasks:[],description:""};
+    onAddTask&&onAddTask(t);
+    setForm({title:"",projectId:"",dueDate:"",priority:"medium"});
+    setShowAdd(false);
+  };
   return(<div style={{padding:16,display:"flex",flexDirection:"column",gap:12}}>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
       <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:16,color:C.heading}}>My Tasks</span>
-      <span style={{fontSize:12,color:C.muted,background:C.bgTrack,borderRadius:10,padding:"2px 10px"}}>{myTasks.length} open</span>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <span style={{fontSize:12,color:C.muted,background:C.bgTrack,borderRadius:10,padding:"2px 10px"}}>{myTasks.length} open</span>
+        <button className="tap" onClick={()=>setShowAdd(v=>!v)}
+          style={{display:"flex",alignItems:"center",gap:5,padding:"6px 12px",borderRadius:8,
+            border:"1px solid "+C.gold+"66",background:showAdd?C.gold+"18":"transparent",
+            color:C.gold,cursor:"pointer",fontSize:12,fontWeight:700,fontFamily:"'Barlow Condensed',sans-serif"}}>
+          + New Task
+        </button>
+      </div>
     </div>
-    {!myTasks.length&&<div style={{textAlign:"center",color:C.dim,padding:"36px 0",fontSize:14}}>No open tasks assigned to you 🎉</div>}
+    {showAdd&&<div style={{background:C.bg2,border:"1px solid "+C.border,borderRadius:12,padding:14,display:"flex",flexDirection:"column",gap:10}}>
+      <input value={form.title} onChange={e=>setForm(f=>({...f,title:e.target.value}))}
+        placeholder="Task title…" autoFocus
+        style={{fontSize:14,padding:"10px 12px",borderRadius:8,background:C.bgInput,border:"1px solid "+C.border,color:C.text,width:"100%"}}
+        onKeyDown={e=>{if(e.key==="Enter")addTask();if(e.key==="Escape")setShowAdd(false);}}/>
+      <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+        <select value={form.projectId} onChange={e=>setForm(f=>({...f,projectId:e.target.value}))}
+          style={{flex:1,minWidth:140,fontSize:12,padding:"7px 10px",borderRadius:8,background:C.bgInput,border:"1px solid "+C.border,color:form.projectId?C.text:C.dim}}>
+          <option value="">— No project —</option>
+          {projects.filter(p=>p.projectStatus!=="archive").map(p=><option key={p.id} value={p.id}>{p.projectNumber?p.projectNumber+" · ":""}{p.name.slice(0,40)}</option>)}
+        </select>
+        <div style={{flexShrink:0}}>
+          <DueDatePicker value={form.dueDate} onChange={v=>setForm(f=>({...f,dueDate:v}))}/>
+        </div>
+        <select value={form.priority} onChange={e=>setForm(f=>({...f,priority:e.target.value}))}
+          style={{fontSize:12,padding:"7px 10px",borderRadius:8,background:C.bgInput,border:"1px solid "+C.border,color:C.text}}>
+          <option value="low">▽ Low</option>
+          <option value="medium">— Normal</option>
+          <option value="high">▲ Urgent</option>
+        </select>
+      </div>
+      <div style={{display:"flex",gap:8}}>
+        <button className="tap" onClick={addTask}
+          style={{flex:1,padding:"9px",borderRadius:8,border:"none",background:C.gold,color:C.bg0,cursor:"pointer",fontSize:13,fontWeight:700,fontFamily:"'Barlow',sans-serif"}}>
+          Add Task
+        </button>
+        <button className="tap" onClick={()=>setShowAdd(false)}
+          style={{padding:"9px 16px",borderRadius:8,border:"1px solid "+C.border,background:"transparent",color:C.muted,cursor:"pointer",fontSize:13}}>
+          Cancel
+        </button>
+      </div>
+    </div>}
+    {!myTasks.length&&!showAdd&&<div style={{textAlign:"center",color:C.dim,padding:"36px 0",fontSize:14}}>No open tasks assigned to you 🎉</div>}
     {myTasks.map(t=>{const proj=projects.find(p=>p.id===t.projectId);const od=t.dueDate&&new Date(t.dueDate+"T00:00:00")<new Date(new Date().setHours(0,0,0,0));
       return(<div key={t.id} style={{background:C.bg2,border:"1px solid "+(od?C.red+"44":C.border),borderRadius:10,padding:"12px 14px"}}>
-        {proj&&<div style={{fontSize:10,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",marginBottom:4}}>{proj.projectNumber} · {proj.name.slice(0,35)}</div>}
-        <div style={{fontSize:14,fontWeight:500,color:C.text,marginBottom:6}}>{t.title}</div>
-        <div style={{display:"flex",alignItems:"center",gap:8}}><DueDatePicker value={t.dueDate||""} onChange={v=>onUpdateTask&&onUpdateTask({...t,dueDate:v})}/><FlagIcon priority={t.priority}/></div>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:4}}>
+          <div onClick={()=>onUpdateTask&&onUpdateTask({...t,status:"done"})}
+            style={{width:16,height:16,borderRadius:"50%",border:"2px solid "+C.muted,cursor:"pointer",flexShrink:0}}/>
+          <div style={{flex:1}}>
+            {proj&&<div style={{fontSize:10,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>{proj.projectNumber} · {proj.name.slice(0,35)}</div>}
+            <div style={{fontSize:14,fontWeight:500,color:C.text}}>{t.title}</div>
+          </div>
+          <FlagIcon priority={t.priority}/>
+        </div>
+        <div style={{paddingLeft:24}}><DueDatePicker value={t.dueDate||""} onChange={v=>onUpdateTask&&onUpdateTask({...t,dueDate:v})}/></div>
       </div>);})}
     {done.length>0&&<div style={{marginTop:8}}>
       <div style={{fontSize:11,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase",marginBottom:8}}>Recently Completed</div>
@@ -878,38 +1009,149 @@ function PersonalTasksTab({tasks,projects,session,onUpdateTask}){
   </div>);
 }
 
+function DrawingCanvas({noteId,onSave}){
+  const canvasRef=React.useRef(null);
+  const [tool,setTool]=useState("pen");
+  const [color,setColor]=useState("#e8f4ff");
+  const [size,setSize]=useState(3);
+  const [drawing,setDrawing]=useState(false);
+  const lastPt=React.useRef(null);
+  const storageKey="ct:drawing:"+noteId;
+  React.useEffect(()=>{
+    const canvas=canvasRef.current;if(!canvas)return;
+    const ctx=canvas.getContext("2d");
+    const saved=LS.get(storageKey);
+    if(saved){const img=new window.Image();img.onload=()=>ctx.drawImage(img,0,0);img.src=saved;}
+    else{ctx.fillStyle="#0f1e2e";ctx.fillRect(0,0,canvas.width,canvas.height);}
+  },[noteId]);
+  const saveCanvas=()=>{const canvas=canvasRef.current;if(!canvas)return;LS.set(storageKey,canvas.toDataURL());if(onSave)onSave();};
+  const getPos=(e,canvas)=>{
+    const r=canvas.getBoundingClientRect();
+    const sx=canvas.width/r.width,sy=canvas.height/r.height;
+    if(e.touches)return{x:(e.touches[0].clientX-r.left)*sx,y:(e.touches[0].clientY-r.top)*sy,pressure:e.touches[0].force||0.5};
+    return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy,pressure:e.pressure||0.5};
+  };
+  const startDraw=(e)=>{
+    e.preventDefault();const canvas=canvasRef.current;if(!canvas)return;
+    const pt=getPos(e,canvas);lastPt.current=pt;setDrawing(true);
+  };
+  const doDraw=(e)=>{
+    e.preventDefault();if(!drawing)return;
+    const canvas=canvasRef.current;if(!canvas)return;
+    const ctx=canvas.getContext("2d");
+    const pt=getPos(e,canvas);const pressure=Math.max(0.1,pt.pressure);
+    if(tool==="eraser"){
+      ctx.globalCompositeOperation="destination-out";
+      ctx.beginPath();ctx.arc(pt.x,pt.y,size*5,0,Math.PI*2);ctx.fill();
+      ctx.globalCompositeOperation="source-over";
+    } else {
+      ctx.globalCompositeOperation="source-over";
+      ctx.strokeStyle=tool==="highlighter"?color+"99":color;
+      ctx.lineWidth=tool==="highlighter"?size*5:size*(0.5+pressure*1.5);
+      ctx.lineCap="round";ctx.lineJoin="round";
+      ctx.globalAlpha=tool==="highlighter"?0.45:1;
+      if(lastPt.current){ctx.beginPath();ctx.moveTo(lastPt.current.x,lastPt.current.y);ctx.lineTo(pt.x,pt.y);ctx.stroke();}
+      ctx.globalAlpha=1;
+    }
+    lastPt.current=pt;
+  };
+  const endDraw=()=>{if(!drawing)return;setDrawing(false);lastPt.current=null;saveCanvas();};
+  const clearCanvas=()=>{
+    if(!window.confirm("Clear this drawing?"))return;
+    const canvas=canvasRef.current;if(!canvas)return;
+    const ctx=canvas.getContext("2d");ctx.fillStyle="#0f1e2e";ctx.fillRect(0,0,canvas.width,canvas.height);
+    LS.set(storageKey,canvas.toDataURL());
+  };
+  const COLORS=["#e8f4ff","#f0c040","#6ac47a","#e05a4e","#4a9eca","#c084fc","#f97316","#ffffff"];
+  const TOOLS=[{id:"pen",icon:"✏️"},{id:"highlighter",icon:"🖊"},{id:"eraser",icon:"◻️"}];
+  const SIZES=[{v:2,label:"S"},{v:4,label:"M"},{v:8,label:"L"}];
+  return(<div style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
+    <div style={{display:"flex",alignItems:"center",gap:8,padding:"6px 10px",background:C.bg1,borderBottom:"1px solid "+C.border2,flexWrap:"wrap",flexShrink:0}}>
+      <div style={{display:"flex",gap:4}}>
+        {TOOLS.map(t=><button key={t.id} className="tap" onClick={()=>setTool(t.id)}
+          style={{padding:"5px 9px",borderRadius:8,border:"1px solid "+(tool===t.id?C.gold:C.border2),
+            background:tool===t.id?C.gold+"22":"transparent",cursor:"pointer",fontSize:15}}>{t.icon}</button>)}
+      </div>
+      <div style={{width:1,height:20,background:C.border2}}/>
+      <div style={{display:"flex",gap:3}}>
+        {COLORS.map(col=><button key={col} className="tap" onClick={()=>setColor(col)}
+          style={{width:20,height:20,borderRadius:"50%",background:col,border:color===col?"2.5px solid white":"2px solid "+C.border2,cursor:"pointer",flexShrink:0}}/>)}
+      </div>
+      <div style={{width:1,height:20,background:C.border2}}/>
+      <div style={{display:"flex",gap:4}}>
+        {SIZES.map(s=><button key={s.v} className="tap" onClick={()=>setSize(s.v)}
+          style={{padding:"3px 9px",borderRadius:8,border:"1px solid "+(size===s.v?C.gold:C.border2),
+            background:size===s.v?C.gold+"22":"transparent",cursor:"pointer",color:size===s.v?C.gold:C.muted,fontSize:11,fontWeight:700}}>{s.label}</button>)}
+      </div>
+      <button className="tap" onClick={clearCanvas} style={{marginLeft:"auto",padding:"4px 10px",borderRadius:8,border:"1px solid "+C.border2,background:"transparent",color:C.dim,cursor:"pointer",fontSize:11}}>Clear</button>
+    </div>
+    <div style={{flex:1,overflow:"hidden",touchAction:"none",position:"relative",background:"#0f1e2e"}}>
+      <canvas ref={canvasRef} width={1600} height={2000}
+        style={{width:"100%",height:"100%",display:"block",cursor:tool==="eraser"?"cell":"crosshair"}}
+        onPointerDown={startDraw} onPointerMove={doDraw} onPointerUp={endDraw} onPointerLeave={endDraw}/>
+    </div>
+  </div>);
+}
+
 function ProNotesTab({session}){
   const key="ct:notes:"+(session&&session.userId||"anon");
   const [folders,setFolders]=useState(()=>LS.get(key)||[{id:"f1",name:"General",notes:[]}]);
   const [selFolder,setSelFolder]=useState(0);
   const [selNote,setSelNote]=useState(null);
-  const [editing,setEditing]=useState(false);
+  const [mode,setMode]=useState("text");
   const save=(f)=>{setFolders(f);LS.set(key,f);};
   const addFolder=()=>{const name=prompt("Folder name:");if(!name)return;const f=[...folders,{id:uid(),name,notes:[]}];save(f);setSelFolder(f.length-1);};
-  const addNote=()=>{const f=folders.map((folder,i)=>i===selFolder?{...folder,notes:[...folder.notes,{id:uid(),title:"New Note",body:"",updatedAt:new Date().toISOString()}]}:folder);save(f);setSelNote(f[selFolder].notes.length-1);setEditing(true);};
+  const addNote=()=>{const f=folders.map((folder,i)=>i===selFolder?{...folder,notes:[...folder.notes,{id:uid(),title:"New Note",body:"",updatedAt:new Date().toISOString()}]}:folder);save(f);setSelNote(f[selFolder].notes.length-1);};
   const updateNote=(field,val)=>{const f=folders.map((folder,i)=>i===selFolder?{...folder,notes:folder.notes.map((n,j)=>j===selNote?{...n,[field]:val,updatedAt:new Date().toISOString()}:n)}:folder);save(f);};
   const delNote=(ni)=>{const f=folders.map((folder,i)=>i===selFolder?{...folder,notes:folder.notes.filter((_,j)=>j!==ni)}:folder);save(f);setSelNote(null);};
   const folder=folders[selFolder]||folders[0];
   const note=folder&&selNote!==null?folder.notes[selNote]:null;
   return(<div style={{display:"flex",height:"calc(100vh - 160px)",overflow:"hidden"}}>
-    <div style={{width:120,borderRight:"1px solid "+C.border2,display:"flex",flexDirection:"column",flexShrink:0}}>
-      <div style={{padding:"12px 8px 8px",fontSize:11,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase"}}>Folders</div>
-      {folders.map((f,i)=><button key={f.id} className="tap" onClick={()=>{setSelFolder(i);setSelNote(null);}} style={{textAlign:"left",padding:"8px 10px",background:selFolder===i?C.bgSelected:"transparent",border:"none",color:selFolder===i?C.gold:C.muted,cursor:"pointer",fontSize:12,fontWeight:selFolder===i?700:400,borderBottom:"1px solid "+C.border2}}>📁 {f.name}</button>)}
-      <button className="tap" onClick={addFolder} style={{margin:"8px",padding:"6px",borderRadius:8,border:"1px dashed "+C.border,background:"transparent",color:C.dim,cursor:"pointer",fontSize:11}}>+ Folder</button>
+    <div style={{width:110,borderRight:"1px solid "+C.border2,display:"flex",flexDirection:"column",flexShrink:0}}>
+      <div style={{padding:"10px 8px 6px",fontSize:10,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase"}}>Folders</div>
+      {folders.map((f,i)=><button key={f.id} className="tap" onClick={()=>{setSelFolder(i);setSelNote(null);}}
+        style={{textAlign:"left",padding:"7px 10px",background:selFolder===i?C.bgSelected:"transparent",border:"none",
+          color:selFolder===i?C.gold:C.muted,cursor:"pointer",fontSize:11,fontWeight:selFolder===i?700:400,borderBottom:"1px solid "+C.border2}}>
+        📁 {f.name}</button>)}
+      <button className="tap" onClick={addFolder} style={{margin:"8px",padding:"5px",borderRadius:7,border:"1px dashed "+C.border,background:"transparent",color:C.dim,cursor:"pointer",fontSize:10}}>+ Folder</button>
     </div>
-    <div style={{width:160,borderRight:"1px solid "+C.border2,display:"flex",flexDirection:"column",flexShrink:0}}>
-      <div style={{padding:"12px 8px 8px",fontSize:11,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase"}}>Notes</div>
-      {folder&&folder.notes.map((n,i)=><button key={n.id} className="tap" onClick={()=>{setSelNote(i);setEditing(false);}} style={{textAlign:"left",padding:"8px 10px",background:selNote===i?C.bgSelected:"transparent",border:"none",color:selNote===i?C.text:C.muted,cursor:"pointer",fontSize:12,borderBottom:"1px solid "+C.border2}}><div style={{fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{n.title}</div><div style={{fontSize:10,color:C.dim,marginTop:2}}>{new Date(n.updatedAt).toLocaleDateString()}</div></button>)}
-      <button className="tap" onClick={addNote} style={{margin:"8px",padding:"6px",borderRadius:8,border:"1px dashed "+C.border,background:"transparent",color:C.dim,cursor:"pointer",fontSize:11}}>+ Note</button>
+    <div style={{width:150,borderRight:"1px solid "+C.border2,display:"flex",flexDirection:"column",flexShrink:0}}>
+      <div style={{padding:"10px 8px 6px",fontSize:10,letterSpacing:2,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",textTransform:"uppercase"}}>Notes</div>
+      {folder&&folder.notes.map((n,i)=><button key={n.id} className="tap" onClick={()=>{setSelNote(i);setMode("text");}}
+        style={{textAlign:"left",padding:"7px 10px",background:selNote===i?C.bgSelected:"transparent",border:"none",
+          color:selNote===i?C.text:C.muted,cursor:"pointer",fontSize:11,borderBottom:"1px solid "+C.border2}}>
+        <div style={{fontWeight:600,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{n.title}</div>
+        <div style={{fontSize:9,color:C.dim,marginTop:2}}>{new Date(n.updatedAt).toLocaleDateString()}</div>
+      </button>)}
+      <button className="tap" onClick={addNote} style={{margin:"8px",padding:"5px",borderRadius:7,border:"1px dashed "+C.border,background:"transparent",color:C.dim,cursor:"pointer",fontSize:10}}>+ Note</button>
     </div>
-    <div style={{flex:1,display:"flex",flexDirection:"column",padding:16,gap:10}}>
-      {note?(<><div style={{display:"flex",alignItems:"center",gap:8}}>
-        {editing?<input value={note.title} onChange={e=>updateNote("title",e.target.value)} style={{flex:1,fontSize:16,fontWeight:600,background:"transparent",border:"none",color:C.heading,borderBottom:"1px solid "+C.border,padding:"4px 0"}}/>:<div style={{flex:1,fontSize:16,fontWeight:600,color:C.heading}}>{note.title}</div>}
-        <button className="tap" onClick={()=>setEditing(v=>!v)} style={{background:editing?C.gold+"22":"transparent",border:"1px solid "+(editing?C.gold:C.border),borderRadius:8,padding:"4px 10px",color:editing?C.gold:C.muted,cursor:"pointer",fontSize:11}}>{editing?"Done":"Edit"}</button>
-        <button className="tap" onClick={()=>delNote(selNote)} style={{background:"transparent",border:"none",color:C.dim,cursor:"pointer",fontSize:16}}>🗑</button>
-      </div>
-      <textarea value={note.body} onChange={e=>updateNote("body",e.target.value)} readOnly={!editing} style={{flex:1,background:editing?C.bgInput:"transparent",border:editing?"1px solid "+C.border:"none",borderRadius:10,padding:editing?12:0,color:C.text,fontSize:14,lineHeight:1.6,resize:"none",fontFamily:"'Barlow',sans-serif"}} placeholder="Start writing..."/></>)
-      :<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100%",color:C.dim,fontSize:14}}>Select or create a note</div>}
+    <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
+      {note?(<>
+        <div style={{display:"flex",alignItems:"center",gap:8,padding:"8px 14px",borderBottom:"1px solid "+C.border2,flexShrink:0}}>
+          <input value={note.title} onChange={e=>updateNote("title",e.target.value)}
+            style={{flex:1,fontSize:15,fontWeight:600,background:"transparent",border:"none",color:C.heading,outline:"none"}}/>
+          <div style={{display:"flex",borderRadius:8,overflow:"hidden",border:"1px solid "+C.border2}}>
+            <button className="tap" onClick={()=>setMode("text")}
+              style={{padding:"5px 12px",background:mode==="text"?C.gold+"22":"transparent",border:"none",
+                color:mode==="text"?C.gold:C.dim,cursor:"pointer",fontSize:11,fontWeight:700}}>✍️ Text</button>
+            <button className="tap" onClick={()=>setMode("draw")}
+              style={{padding:"5px 12px",background:mode==="draw"?C.blue+"22":"transparent",border:"none",
+                color:mode==="draw"?C.blue:C.dim,cursor:"pointer",fontSize:11,fontWeight:700,borderLeft:"1px solid "+C.border2}}>🍎✏️ Draw</button>
+          </div>
+          <button className="tap" onClick={()=>delNote(selNote)} style={{background:"transparent",border:"none",color:C.dim,cursor:"pointer",fontSize:16}}>🗑</button>
+        </div>
+        {mode==="text"
+          ?<textarea value={note.body} onChange={e=>updateNote("body",e.target.value)}
+              style={{flex:1,background:"transparent",border:"none",padding:"14px",color:C.text,
+                fontSize:14,lineHeight:1.7,resize:"none",fontFamily:"'Barlow',sans-serif",outline:"none"}}
+              placeholder="Start typing..."/>
+          :<DrawingCanvas noteId={note.id} onSave={()=>updateNote("updatedAt",new Date().toISOString())}/>
+        }
+      </>)
+      :<div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%",gap:10,color:C.dim}}>
+        <div style={{fontSize:32}}>📝</div>
+        <div style={{fontSize:14}}>Select or create a note</div>
+      </div>}
     </div>
   </div>);
 }
@@ -920,44 +1162,173 @@ function ProTimesheetTab({tasks,projects,session,members}){
   const weekDays=Array.from({length:7},(_,i)=>{const d=new Date(sat);d.setDate(sat.getDate()+i);return d;});
   const key="ct:ts:"+(session&&session.userId||"anon")+":"+sat.toISOString().slice(0,10);
   const [hours,setHours]=useState(()=>LS.get(key)||{});
+  const [weekOffset,setWeekOffset]=useState(0);
+  const [expandOH,setExpandOH]=useState(true);
   const save=(h)=>{setHours(h);LS.set(key,h);};
   const myId=session&&session.memberId;
-  const myProjects=projects.filter(p=>(p.teamMemberIds||[]).includes(myId)||(p.assigneeIds||[]).includes(myId)||(p.principalInCharge===myId)||(p.projectManager===myId));
-  const total=(pid,di)=>parseFloat(hours[pid+"_"+di]||0);
-  const dayTotal=(di)=>myProjects.reduce((s,p)=>s+total(p.id,di),0);
-  const projTotal=(pid)=>weekDays.reduce((s,_,i)=>s+total(pid,i),0);
-  const grandTotal=weekDays.reduce((s,_,i)=>s+dayTotal(i),0);
-  return(<div style={{padding:16,overflowX:"auto"}}>
-    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:12}}>
-      <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:16,color:C.heading}}>Weekly Timesheet</span>
-      <span style={{fontSize:12,color:C.muted}}>Week of {sat.toLocaleDateString("en-US",{month:"short",day:"numeric"})}</span>
+  const allProjects=projects.filter(p=>p.projectStatus!=="archive").sort((a,b)=>(a.projectNumber||"").localeCompare(b.projectNumber||"",undefined,{numeric:true}));
+  const tsRowsKey="ct:ts:rows:"+(session&&session.userId||"anon");
+  const [selectedProjIds,setSelectedProjIds]=useState(()=>LS.get(tsRowsKey)||[]);
+  const addProjRow=(id)=>{if(!id||selectedProjIds.includes(id))return;const next=[...selectedProjIds,id];setSelectedProjIds(next);LS.set(tsRowsKey,next);};
+  const removeProjRow=(id)=>{const next=selectedProjIds.filter(x=>x!==id);setSelectedProjIds(next);LS.set(tsRowsKey,next);};
+  const myProjects=selectedProjIds.map(id=>allProjects.find(p=>p.id===id)).filter(Boolean);
+
+  // Each project can have multiple activity rows
+  const ACTIVITIES=["General Civil Design Phase","Construction Engineering","Construction Observation","Asbuilt Phase","Permit Application","Preliminary","Other"];
+  const OVERHEAD_CATS=["Administration","Bereavement Paid Leave","Community Service Leave","Jury Duty","Marketing","Maternity/Paternity Paid Leave","Paid Leave","Professional Development","Sick - Paid Leave"];
+
+  // Row keys: direct = "d_projId_actIdx", overhead = "oh_catIdx"
+  const getVal=(rowKey,di)=>parseFloat(hours[rowKey+"_"+di]||0)||0;
+  const setVal=(rowKey,di,val)=>save({...hours,[rowKey+"_"+di]:val||""});
+  const rowTotal=(rowKey)=>weekDays.reduce((s,_,i)=>s+getVal(rowKey,i),0);
+  const dayDirect=(di)=>myProjects.reduce((s,p)=>{
+    const rk="d_"+p.id+"_0";
+    return s+getVal(rk,di);
+  },0);
+  // Actually sum all activity rows per project
+  const dayDirectAll=(di)=>myProjects.reduce((s,p)=>s+getVal("d_"+p.id,di),0);
+  const dayOH=(di)=>OVERHEAD_CATS.reduce((s,_,ci)=>s+getVal("oh_"+ci,di),0);
+  const grandDirect=weekDays.reduce((s,_,i)=>s+dayDirectAll(i),0);
+  const grandOH=weekDays.reduce((s,_,i)=>s+dayOH(i),0);
+  const grandTotal=grandDirect+grandOH;
+
+  const fmtDate=(d)=>d.toLocaleDateString("en-US",{month:"2-digit",day:"2-digit"});
+  const weekLabel=(d)=>d.toLocaleDateString("en-US",{weekday:"short"}).slice(0,3);
+
+  const thStyle={padding:"4px 6px",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,
+    fontSize:10,letterSpacing:1,borderBottom:"1px solid "+C.border,borderRight:"1px solid "+C.border2,
+    textAlign:"center",whiteSpace:"nowrap",background:C.bgDeep};
+  const tdStyle={padding:"3px 4px",borderBottom:"1px solid "+C.border2,borderRight:"1px solid "+C.border2,fontSize:11,color:C.text};
+  const inp=(rowKey,di)=><input type="number" min="0" max="24" step="0.25"
+    value={hours[rowKey+"_"+di]||""}
+    onChange={e=>setVal(rowKey,di,e.target.value)}
+    style={{width:44,textAlign:"center",padding:"2px",fontSize:11,
+      background:"transparent",border:"none",color:C.text,outline:"none"}}/>;
+  const totCell=(v)=><td style={{...tdStyle,textAlign:"center",fontWeight:600,color:v>0?C.text:C.dim,background:C.bgDeep}}>{v>0?v.toFixed(2):""}</td>;
+
+  return(<div style={{overflowX:"auto",fontSize:12}}>
+    {/* Week nav */}
+    <div style={{display:"flex",alignItems:"center",gap:12,padding:"10px 12px",borderBottom:"1px solid "+C.border,background:C.bg1}}>
+      <button className="tap" onClick={()=>{const d=new Date(sat);d.setDate(d.getDate()-7);setWeekOffset(w=>w-1);}} style={{background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.muted,padding:"4px 10px",cursor:"pointer",fontSize:12}}>‹ Prev</button>
+      <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:14,color:C.heading}}>
+        Week of {sat.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}
+      </span>
+      <button className="tap" onClick={()=>{setWeekOffset(w=>w+1);}} style={{background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.muted,padding:"4px 10px",cursor:"pointer",fontSize:12}}>Next ›</button>
     </div>
-    <table style={{width:"100%",borderCollapse:"collapse",fontSize:12,minWidth:600}}>
-      <thead><tr style={{background:C.bgDeep}}>
-        <th style={{textAlign:"left",padding:"8px 10px",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1,fontWeight:700,borderBottom:"1px solid "+C.border2,minWidth:140}}>PROJECT</th>
-        {weekDays.map((d,i)=>{const isT=d.toDateString()===today.toDateString();return(<th key={i} style={{padding:"8px 6px",color:isT?C.gold:C.dim,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,borderBottom:"1px solid "+C.border2,textAlign:"center",minWidth:55,background:isT?C.gold+"10":"transparent"}}>{d.toLocaleDateString("en-US",{weekday:"short",month:"numeric",day:"numeric"})}</th>);})}
-        <th style={{padding:"8px 6px",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,borderBottom:"1px solid "+C.border2,textAlign:"center"}}>TOTAL</th>
-      </tr></thead>
+
+    <table style={{borderCollapse:"collapse",width:"100%",minWidth:700}}>
+      {/* Header */}
+      <thead>
+        <tr>
+          <th style={{...thStyle,textAlign:"left",minWidth:200,width:220}}>Project</th>
+          <th style={{...thStyle,textAlign:"left",minWidth:140,width:160}}>Phase</th>
+          <th style={{...thStyle,textAlign:"left",minWidth:70,width:80}}>Activity</th>
+          {weekDays.map((d,i)=>{const isT=d.toDateString()===today.toDateString();return(<th key={i} style={{...thStyle,minWidth:52,background:isT?C.gold+"18":C.bgDeep,color:isT?C.gold:C.dim}}>
+            <div>{weekLabel(d)}</div>
+            <div style={{fontWeight:400,fontSize:9}}>{fmtDate(d)}</div>
+          </th>);})}
+          <th style={{...thStyle,minWidth:54,background:C.bgDeep}}>Total</th>
+        </tr>
+      </thead>
       <tbody>
-        {!myProjects.length&&<tr><td colSpan={9} style={{textAlign:"center",padding:"24px",color:C.dim}}>No projects assigned to you</td></tr>}
-        {myProjects.map(p=><tr key={p.id} style={{borderBottom:"1px solid "+C.border2}}>
-          <td style={{padding:"8px 10px",color:C.text,fontWeight:500}}><div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:140}}>{p.projectNumber&&<span style={{color:C.dim,fontSize:10,marginRight:4}}>{p.projectNumber}</span>}{p.name}</div></td>
-          {weekDays.map((_,i)=><td key={i} style={{padding:"4px",textAlign:"center"}}><input type="number" min="0" max="24" step="0.5" value={hours[p.id+"_"+i]||""} onChange={e=>{save({...hours,[p.id+"_"+i]:e.target.value});}} style={{width:48,textAlign:"center",padding:"5px 4px",fontSize:12,background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.text}}/></td>)}
-          <td style={{padding:"8px 6px",textAlign:"center",fontWeight:700,color:projTotal(p.id)>0?C.gold:C.dim}}>{projTotal(p.id)||"—"}</td>
-        </tr>)}
+        {/* DIRECT section header */}
+        <tr style={{background:"#1a3a5a"}}>
+          <td colSpan={3} style={{padding:"5px 8px",fontWeight:700,fontSize:11,color:C.blue,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1}}>DIRECT</td>
+          {weekDays.map((_,i)=><td key={i} style={{borderRight:"1px solid "+C.border2}}/>)}
+          <td/>
+        </tr>
+
+        {/* Direct project rows */}
+        <tr style={{background:C.bg1}}>
+          <td colSpan={3} style={{padding:"6px 8px"}}>
+            <select onChange={e=>{addProjRow(e.target.value);e.target.value="";}}
+              style={{background:C.bgInput,border:"1px solid "+C.border2,borderRadius:6,color:C.muted,
+                fontSize:11,padding:"4px 8px",width:"100%",cursor:"pointer"}}>
+              <option value="">+ Add project to timesheet…</option>
+              {allProjects.filter(p=>!selectedProjIds.includes(p.id)).map(p=>(
+                <option key={p.id} value={p.id}>{p.projectNumber?p.projectNumber+" · ":""}{p.name.slice(0,50)}</option>
+              ))}
+            </select>
+          </td>
+          {weekDays.map((_,i)=><td key={i}/>)}<td/>
+        </tr>
+        {myProjects.length===0&&<tr><td colSpan={11} style={{padding:"12px 8px",textAlign:"center",color:C.dim,fontSize:11}}>Use the dropdown above to add projects</td></tr>}
+        {myProjects.map(p=>{
+          const rk="d_"+p.id;
+          const rt=rowTotal(rk);
+          return(<tr key={p.id} style={{borderBottom:"1px solid "+C.border2}}>
+            <td style={{...tdStyle,padding:"3px 8px"}}>
+              <div style={{display:"flex",alignItems:"center",gap:4}}>
+                <button className="tap" onClick={()=>removeProjRow(p.id)}
+                  style={{background:"transparent",border:"none",color:C.dim,cursor:"pointer",fontSize:12,padding:"0 2px",flexShrink:0,lineHeight:1}}>✕</button>
+                <div style={{overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
+                  {p.projectNumber&&<span style={{color:C.dim,fontSize:10,marginRight:4}}>{p.projectNumber}</span>}
+                  <span style={{color:C.text}}>{p.name.length>32?p.name.slice(0,32)+"…":p.name}</span>
+                </div>
+              </div>
+            </td>
+            <td style={{...tdStyle,padding:"3px 6px"}}>
+              <select value={hours["act_"+p.id]||ACTIVITIES[0]} onChange={e=>save({...hours,["act_"+p.id]:e.target.value})}
+                style={{background:"transparent",border:"none",color:C.muted,fontSize:11,width:"100%",cursor:"pointer"}}>
+                {ACTIVITIES.map(a=><option key={a} value={a}>{a}</option>)}
+              </select>
+            </td>
+            <td style={{...tdStyle,textAlign:"center",color:C.dim,fontSize:10}}>Billable</td>
+            {weekDays.map((_,i)=>{const isT=weekDays[i].toDateString()===today.toDateString();
+              return(<td key={i} style={{...tdStyle,textAlign:"center",background:isT?C.gold+"08":"transparent"}}>{inp(rk,i)}</td>);})}
+            {totCell(rt)}
+          </tr>);
+        })}
+
+        {/* Direct totals row */}
+        <tr style={{background:C.bgDeep,borderTop:"2px solid "+C.border}}>
+          <td colSpan={3} style={{padding:"5px 8px",fontWeight:700,fontSize:11,color:C.muted,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1}}>Direct</td>
+          {weekDays.map((_,i)=>{const v=dayDirectAll(i);return(<td key={i} style={{...tdStyle,textAlign:"center",fontWeight:700,color:v>0?C.text:C.dim,background:C.bgDeep}}>{v>0?v.toFixed(2):""}</td>);})}
+          <td style={{...tdStyle,textAlign:"center",fontWeight:700,color:grandDirect>0?C.gold:C.dim,background:C.bgDeep}}>{grandDirect>0?grandDirect.toFixed(2):""}</td>
+        </tr>
+
+        {/* OVERHEAD section */}
+        <tr style={{background:"#1a3a5a",cursor:"pointer"}} onClick={()=>setExpandOH(v=>!v)}>
+          <td colSpan={3} style={{padding:"5px 8px",fontWeight:700,fontSize:11,color:C.blue,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1}}>
+            <span style={{marginRight:6}}>{expandOH?"▾":"▸"}</span>Overhead
+          </td>
+          {weekDays.map((_,i)=><td key={i} style={{borderRight:"1px solid "+C.border2}}/>)}
+          <td/>
+        </tr>
+
+        {expandOH&&OVERHEAD_CATS.map((cat,ci)=>{
+          const rk="oh_"+ci;const rt=rowTotal(rk);
+          return(<tr key={ci} style={{borderBottom:"1px solid "+C.border2}}>
+            <td colSpan={3} style={{...tdStyle,padding:"3px 8px",color:C.muted}}>{cat}</td>
+            {weekDays.map((_,i)=>{const isT=weekDays[i].toDateString()===today.toDateString();
+              return(<td key={i} style={{...tdStyle,textAlign:"center",background:isT?C.gold+"08":"transparent"}}>{inp(rk,i)}</td>);})}
+            {totCell(rt)}
+          </tr>);
+        })}
+
+        {/* Overhead totals */}
+        <tr style={{background:C.bgDeep,borderTop:"2px solid "+C.border}}>
+          <td colSpan={3} style={{padding:"5px 8px",fontWeight:700,fontSize:11,color:C.muted,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1}}>Overhead</td>
+          {weekDays.map((_,i)=>{const v=dayOH(i);return(<td key={i} style={{...tdStyle,textAlign:"center",fontWeight:700,color:v>0?C.text:C.dim,background:C.bgDeep}}>{v>0?v.toFixed(2):"0.00"}</td>);})}
+          <td style={{...tdStyle,textAlign:"center",fontWeight:700,color:grandOH>0?C.gold:C.dim,background:C.bgDeep}}>{grandOH.toFixed(2)}</td>
+        </tr>
+
+        {/* Grand total */}
+        <tr style={{background:"#0a1828",borderTop:"2px solid "+C.border}}>
+          <td colSpan={3} style={{padding:"6px 8px",fontWeight:700,fontSize:12,color:C.heading,fontFamily:"'Barlow Condensed',sans-serif",letterSpacing:1}}>Timesheet Total</td>
+          {weekDays.map((_,i)=>{const v=dayDirectAll(i)+dayOH(i);return(<td key={i} style={{...tdStyle,textAlign:"center",fontWeight:700,color:v>0?C.gold:C.dim,background:"#0a1828",fontSize:12}}>{v>0?v.toFixed(2):""}</td>);})}
+          <td style={{...tdStyle,textAlign:"center",fontWeight:700,color:C.gold,background:"#0a1828",fontSize:12}}>{grandTotal>0?grandTotal.toFixed(2):""}</td>
+        </tr>
       </tbody>
-      <tfoot><tr style={{background:C.bgDeep,borderTop:"2px solid "+C.border}}>
-        <td style={{padding:"8px 10px",fontWeight:700,color:C.muted,fontFamily:"'Barlow Condensed',sans-serif"}}>DAILY TOTAL</td>
-        {weekDays.map((_,i)=><td key={i} style={{padding:"8px 6px",textAlign:"center",fontWeight:700,color:dayTotal(i)>0?C.gold:C.dim}}>{dayTotal(i)||"—"}</td>)}
-        <td style={{padding:"8px 6px",textAlign:"center",fontWeight:700,color:C.gold}}>{grandTotal||"—"}</td>
-      </tr></tfoot>
     </table>
   </div>);
 }
 
 
-function DashboardView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,onSelectProject}){
+
+function DashboardView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,onSelectProject,onAddTask,onUpdateTask}){
   const [spaceTab,setSpaceTab]=useState("home");
+  const [selM,setSelM]=useState(null);
 
   const today=new Date(); today.setHours(0,0,0,0);
   const coProjects=(selCompany==="all"?projects:projects.filter(p=>p.companyId===selCompany)).filter(p=>p.projectStatus!=="archive");
@@ -1067,7 +1438,6 @@ function DashboardView({projects,tasks,members,teams,companies,selCompany,setSel
     {/* ── Member rail ── */}
     {(()=>{
       const coMems=(selCompany==="all"?members:members.filter(m=>m.companyId===selCompany)).sort((a,b)=>a.name.localeCompare(b.name));
-      const [selM,setSelM]=React.useState(null);
       return coMems.length>0?<div style={{marginBottom:4}}>
         <MemberRail members={coMems} teams={teams} companies={companies} selCompany={selCompany} selMemberId={selM} onSelect={setSelM}/>
         {selM&&<MemberSummaryBar memberId={selM} members={members} teams={teams} projects={projects} tasks={tasks} companies={companies}/>}
@@ -1252,9 +1622,9 @@ function DashboardView({projects,tasks,members,teams,companies,selCompany,setSel
     </div>
 
   </div>}
-      {spaceTab==="tasks"&&<PersonalTasksTab tasks={tasks} projects={projects} members={members} session={session} onUpdateTask={()=>{}}/>}
-      {spaceTab==="notes"&&<ProNotesTab session={session}/>}
-      {spaceTab==="time"&&<ProTimesheetTab tasks={tasks} projects={projects} session={session} members={members}/>}
+      {spaceTab==="tasks"&&<TabErrorBoundary><PersonalTasksTab tasks={tasks} projects={projects} members={members} session={session} onUpdateTask={onUpdateTask} onAddTask={onAddTask}/></TabErrorBoundary>}
+      {spaceTab==="notes"&&<TabErrorBoundary><ProNotesTab session={session}/></TabErrorBoundary>}
+      {spaceTab==="time"&&<TabErrorBoundary><ProTimesheetTab tasks={tasks} projects={projects} session={session} members={members}/></TabErrorBoundary>}
     </div>
   </div>);
 }
@@ -1364,6 +1734,18 @@ function ProjectListView({projects,tasks,members,teams,companies,selCompany,setS
     (filterMember==="all"||(p.teamMemberIds||[]).includes(filterMember))&&
     matchesSearch(p)
   );
+  const sortedProjects=useMemo(()=>[...displayProjects].sort((a,b)=>{
+    const gn=(id,arr)=>(arr.find(x=>x.id===id)||{}).name||"";
+    let v=0;
+    if(sortCol==="num")v=(a.projectNumber||"").localeCompare(b.projectNumber||"",undefined,{numeric:true});
+    else if(sortCol==="name")v=(a.name||"").localeCompare(b.name||"");
+    else if(sortCol==="phase")v=(a.projectStatus||"").localeCompare(b.projectStatus||"");
+    else if(sortCol==="firm")v=gn(a.companyId,companies).localeCompare(gn(b.companyId,companies));
+    else if(sortCol==="principal")v=gn(a.principalInCharge,members).localeCompare(gn(b.principalInCharge,members));
+    else if(sortCol==="pm")v=gn(a.projectManager,members).localeCompare(gn(b.projectManager,members));
+    else if(sortCol==="team")v=gn(a.teamId,teams).localeCompare(gn(b.teamId,teams));
+    return sortDir==="asc"?v:-v;
+  }),[displayProjects,sortCol,sortDir,companies,members,teams]);
   const activeFilters=(filterPhase!=="all"?1:0)+(filterTeam!=="all"?1:0)+
     (filterPrincipal!=="all"?1:0)+(filterPM!=="all"?1:0)+(filterMember!=="all"?1:0)+(search?1:0);
   const clearFilters=()=>{setFilterPhase("all");setFilterTeam("all");setFilterPrincipal("all");
@@ -1487,17 +1869,43 @@ function ProjectListView({projects,tasks,members,teams,companies,selCompany,setS
   };
 
   // Column widths
-  const COL={num:92,phase:100,firm:108,person:120,team:76};
+  const [colW,setColW]=useState(()=>LS.get('ct:colw:proj')||{num:92,phase:100,firm:108,person:120,team:76});
+  const [sortCol,setSortCol]=useState("num");
+  const [sortDir,setSortDir]=useState("asc");
+  const doSort=(col)=>{if(sortCol===col){setSortDir(d=>d==="asc"?"desc":"asc");}else{setSortCol(col);setSortDir("asc");}};
+  const COL=colW;
+
+  const startResize=(col,e)=>{
+    e.preventDefault();e.stopPropagation();
+    const startX=e.clientX;const startW=colW[col];
+    const onMove=(ev)=>{const nw=Math.max(50,startW+(ev.clientX-startX));setColW(c=>{const n={...c,[col]:nw};LS.set('ct:colw:proj',n);return n;});};
+    const onUp=()=>{document.removeEventListener("mousemove",onMove);document.removeEventListener("mouseup",onUp);};
+    document.addEventListener("mousemove",onMove);document.addEventListener("mouseup",onUp);
+  };
+
+  const SHdr=({col,width,flex,children})=>{
+    const act=sortCol===col;
+    return(<div style={{width,flex,flexShrink:flex?undefined:0,position:"relative",display:"flex",alignItems:"center",gap:3,
+        fontSize:10,letterSpacing:1,textTransform:"uppercase",fontFamily:"'Barlow Condensed',sans-serif",
+        color:act?C.gold:C.dim,cursor:"pointer",userSelect:"none",paddingRight:8}}
+      onClick={()=>doSort(col)}>
+      {children}{act&&<span style={{fontSize:10,fontWeight:700,color:C.gold}}>{sortDir==="asc"?"↑":"↓"}</span>}
+      {col!=="name"&&<div onMouseDown={e=>startResize(col,e)}
+        style={{position:"absolute",right:0,top:"10%",height:"80%",width:4,cursor:"col-resize",
+          background:"transparent",borderRight:"2px solid "+C.border2}}
+        onClick={e=>e.stopPropagation()}/>}
+    </div>);
+  };
 
   const ColHdr=()=><div style={{display:"flex",alignItems:"center",padding:"6px 12px",borderBottom:"1px solid "+C.border2,background:C.bgDeep,gap:0}}>
     <div style={{width:36,flexShrink:0}}/>
-    <div style={{width:COL.num,flexShrink:0,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}># Number</div>
-    <div style={{flex:1,minWidth:120,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Project Name</div>
-    <div style={{width:COL.phase,flexShrink:0,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Phase</div>
-    <div style={{width:COL.firm,flexShrink:0,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Firm</div>
-    <div style={{width:COL.person,flexShrink:0,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Principal</div>
-    <div style={{width:COL.person,flexShrink:0,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Proj. Mgr.</div>
-    <div style={{width:COL.team,flexShrink:0,fontSize:10,letterSpacing:1,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Team</div>
+    <SHdr col="num" width={COL.num}># Number</SHdr>
+    <SHdr col="name" flex={1}>Project Name</SHdr>
+    <SHdr col="phase" width={COL.phase}>Phase</SHdr>
+    <SHdr col="firm" width={COL.firm}>Firm</SHdr>
+    <SHdr col="principal" width={COL.person}>Principal</SHdr>
+    <SHdr col="pm" width={COL.person}>Proj. Mgr.</SHdr>
+    <SHdr col="team" width={COL.team}>Team</SHdr>
     <div style={{width:58,flexShrink:0}}/>
   </div>;
 
@@ -1600,7 +2008,7 @@ function ProjectListView({projects,tasks,members,teams,companies,selCompany,setS
     <div style={{background:C.bg2,borderRadius:12,border:"1px solid "+C.border,overflow:"hidden",overflowX:"auto"}}>
       <ColHdr/>
       {Object.entries(PROJ_STATUS).filter(([k])=>k!=="archive").map(([key,ps])=>{
-        const grp=displayProjects.filter(p=>(p.projectStatus||"construction")===key);
+        const grp=sortedProjects.filter(p=>(p.projectStatus||"construction")===key);
         if(!grp.length)return null;
         const isGrpOpen=expanded["grp_"+key]!==false;
         return(<div key={key}>
@@ -1612,7 +2020,7 @@ function ProjectListView({projects,tasks,members,teams,companies,selCompany,setS
           {isGrpOpen&&grp.map(p=><ProjRow key={p.id} project={p}/>)}
         </div>);
       })}
-      {!displayProjects.length&&<div style={{textAlign:"center",color:C.dim,padding:"36px 0",fontSize:14}}>{activeFilters>0?"No projects match your filters":"No projects yet"}</div>}
+      {!sortedProjects.length&&<div style={{textAlign:"center",color:C.dim,padding:"36px 0",fontSize:14}}>{activeFilters>0?"No projects match your filters":"No projects yet"}</div>}
     </div>
     {showArchived&&allCoProjects.filter(p=>p.projectStatus==="archive").length>0&&(
       <div style={{marginTop:12,background:C.bg1,borderRadius:12,border:"1px solid "+C.border+"88",overflow:"hidden",opacity:0.75}}>
@@ -1701,7 +2109,7 @@ function ProjectDetailView({project,tasks,members,teams,companies,projects,onBac
   const ColHdr=()=><div style={{display:"flex",alignItems:"center",padding:"5px 12px",borderBottom:"1px solid "+C.border2,background:C.bgDeep}}>
     <div style={{width:26,flexShrink:0}}/><div style={{flex:1,fontSize:10,letterSpacing:2,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Task Name</div>
     <div style={{width:34,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Who</div>
-    <div style={{width:70,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Due Date</div>
+    <div style={{width:120,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Due Date</div>
     <div style={{width:30,textAlign:"center",fontSize:10,color:C.dim}}>Pri</div>
   </div>;
 
@@ -1717,11 +2125,13 @@ function ProjectDetailView({project,tasks,members,teams,companies,projects,onBac
           {(task.subtasks||[]).length>0&&<div style={{fontSize:10,color:C.dim,marginTop:2}}>☐ {sub}/{task.subtasks.length}</div>}
         </div>
         <div style={{width:34,display:"flex",justifyContent:"center",flexShrink:0}}>{m?<Av initials={m.avatar} color={mt?mt.color:C.blue} size={24}/>:<span style={{color:C.border,fontSize:18}}>◯</span>}</div>
-        <div style={{width:70,textAlign:"center",fontSize:11,color:od?C.red:task.dueDate?C.muted:C.dim,fontWeight:od?600:400,flexShrink:0}}>{task.dueDate?fmtShort(task.dueDate):"—"}</div>
+        <div style={{width:120,display:"flex",justifyContent:"center",flexShrink:0}} onClick={e=>e.stopPropagation()}>
+          <DueDatePicker value={task.dueDate||""} onChange={v=>onUpdateTask({...task,dueDate:v})}/>
+        </div>
         <div style={{width:30,display:"flex",justifyContent:"center",flexShrink:0}}><FlagIcon priority={task.priority}/></div>
       </div>
       <div style={{display:"flex",padding:"0 12px 5px 38px",gap:14}}>
-        <button className="tap" onClick={()=>setSchedSheet(task)} style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:11,display:"flex",alignItems:"center",gap:3,padding:"1px 0"}}><Icon name="cal" size={11}/>Due/Priority</button>
+        <button className="tap" onClick={()=>setSchedSheet(task)} style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:11,display:"flex",alignItems:"center",gap:3,padding:"1px 0"}}><Icon name="flag" size={11}/>Edit priority</button>
         <button className="tap" onClick={()=>setConfirm(task.id)} style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:11,display:"flex",alignItems:"center",gap:3,padding:"1px 0"}}><Icon name="trash" size={11}/>Delete</button>
       </div>
     </div>);
@@ -1885,7 +2295,7 @@ function ProjectSheet({project,teams,companies,members,onClose,onSave}){
 }
 
 // ── TASK LIST VIEW — grouped by department, then time within each ─────────────
-function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelCompany,session,onUpdateTask}){
+function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelCompany,session,onUpdateTask,batchUpTask}){
   const [taskSheet,setTaskSheet]=useState(null);
   const [schedSheet,setSchedSheet]=useState(null);
   const [collapsed,setCollapsed]=useState({done:true});
@@ -1949,7 +2359,7 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
     <div style={{width:26,flexShrink:0}}/>
     <div style={{flex:1,fontSize:10,letterSpacing:2,textTransform:"uppercase",color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Task Name</div>
     <div style={{width:46,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Who</div>
-    <div style={{width:70,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Due Date</div>
+    <div style={{width:120,textAlign:"center",fontSize:10,letterSpacing:1,color:C.dim,fontFamily:"'Barlow Condensed',sans-serif"}}>Due Date</div>
     <div style={{width:26}}/>
   </div>;
 
@@ -1973,12 +2383,14 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
           <div style={{fontSize:13,fontWeight:500,color:od?C.red:task.status==="done"?C.dim:C.text,textDecoration:task.status==="done"?"line-through":"none",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{task.title}</div>
         </div>
         <div style={{width:46,display:"flex",justifyContent:"center",flexShrink:0}}><AssigneeAvatars ids={taskIds}/></div>
-        <div style={{width:70,textAlign:"center",fontSize:11,color:od?C.red:task.dueDate?C.muted:C.dim,fontWeight:od?600:400,flexShrink:0}}>{task.dueDate?fmtShort(task.dueDate):"—"}</div>
+        <div style={{width:120,display:"flex",justifyContent:"center",flexShrink:0}} onClick={e=>e.stopPropagation()}>
+          <DueDatePicker value={task.dueDate||""} onChange={v=>onUpdateTask({...task,dueDate:v})}/>
+        </div>
         <div style={{width:26,display:"flex",justifyContent:"center",flexShrink:0}}><FlagIcon priority={task.priority}/></div>
       </div>
       <div style={{padding:"0 12px 5px 38px"}}>
         <button className="tap" onClick={()=>setSchedSheet(task)} style={{background:"none",border:"none",color:C.dim,cursor:"pointer",fontSize:11,display:"flex",alignItems:"center",gap:3,padding:"1px 0"}}>
-          <Icon name="cal" size={11}/>Edit due/priority
+          <Icon name="flag" size={11}/>Edit priority
         </button>
       </div>
     </div>);
@@ -2040,6 +2452,17 @@ function TaskListView({tasks,projects,members,teams,companies,selCompany,setSelC
           <div style={{color:C.muted,transition:"transform 0.14s",transform:isCol?"rotate(0deg)":"rotate(90deg)"}}><Icon name="chev" size={13}/></div>
           <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:13,color,letterSpacing:0.5}}>{label}</span>
           <span style={{fontSize:13,color:C.muted,fontWeight:600,background:C.bgTrack,borderRadius:10,padding:"1px 8px"}}>{grpTasks.length}</span>
+          {id==="overdue"&&<button className="tap" onClick={e=>{
+            e.stopPropagation();
+            const td=new Date().toISOString().slice(0,10);
+            if(batchUpTask){batchUpTask(grpTasks.map(t=>({...t,dueDate:td})));}
+            else{grpTasks.forEach(t=>onUpdateTask({...t,dueDate:td}));}
+          }} style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:5,padding:"5px 12px",
+            borderRadius:8,border:"1px solid "+C.red+"55",background:C.red+"12",
+            color:C.red,cursor:"pointer",fontSize:11,fontWeight:700,
+            fontFamily:"'Barlow Condensed',sans-serif",flexShrink:0}}>
+            <Icon name="cal" size={12}/>Reschedule All → Today
+          </button>}
         </div>
         {!isCol&&<div className="expand"><ColHdr/>{grpTasks.map(t=><TaskRow key={t.id} task={t}/>)}</div>}
       </div>);
@@ -2560,7 +2983,7 @@ function MemberSummaryBar({memberId,members,teams,projects,tasks,companies}){
   );
 }
 
-function CivilView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,canEdit,onSelectProject,onAddProject,onDelProject,onUpdateTask,onAddTask,onDelTask,onUpdateProject}){
+function CivilView({projects,tasks,members,teams,companies,selCompany,setSelCompany,session,canEdit,onSelectProject,onAddProject,onDelProject,onUpdateTask,batchUpTask,onAddTask,onDelTask,onUpdateProject}){
   const [sub,setSub]=useState("projects");
   const [selMember,setSelMember]=useState(null);
 
@@ -2619,7 +3042,7 @@ function CivilView({projects,tasks,members,teams,companies,selCompany,setSelComp
       tasks={scopedTasks} projects={projects} members={members} teams={teams}
       companies={companies} selCompany={selCompany} setSelCompany={setSelCompany}
       session={session}
-      onUpdateTask={onUpdateTask}/>}
+      onUpdateTask={onUpdateTask} batchUpTask={batchUpTask}/>}
     {sub==="calendar"&&<MonthCalendar projects={projects} tasks={tasks} onSelectProject={id=>{onSelectProject(id);}} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany}/>}
   </div>);
 }
@@ -2678,6 +3101,7 @@ function App(){
   const saveP=(p)=>{setProjects(p);LS.set(SK.projects,p);window.fbSet('projects',p);};
   const saveT=(t)=>{setTasks(t);LS.set(SK.tasks,t);window.fbSet('tasks',t);};
   const upTask=(u)=>saveT(tasks.map(t=>t.id===u.id?u:t));
+  const batchUpTask=(updates)=>{const map={};updates.forEach(u=>{map[u.id]=u;});saveT(tasks.map(t=>map[t.id]?{...t,...map[t.id]}:t));};
 
   const isAdmin=session&&session.role==="admin";
   const isLeader=session&&session.role==="leader";
@@ -2731,8 +3155,8 @@ function App(){
 
   const main=()=>{
     if(detailMode&&selProj)return <ProjectDetailView project={selProj} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} projects={visibleProjects} canEdit={hasEditAccess} onBack={()=>{setDetailMode(false);setSelProjId(null);}} onUpdateTask={upTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))}/>;
-    if(tab==="home")     return <DashboardView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);setTab("civil");}}/>;
-    if(tab==="civil")    return <CivilView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} canEdit={hasEditAccess} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);}} onAddProject={p=>saveP([...projects,p])} onDelProject={id=>{saveP(projects.filter(p=>p.id!==id));saveT(tasks.filter(t=>t.projectId!==id));}} onUpdateTask={upTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))}/>;
+    if(tab==="home")     return <DashboardView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);setTab("civil");}} onAddTask={t=>saveT([...tasks,t])} onUpdateTask={upTask}/>;
+    if(tab==="civil")    return <CivilView projects={visibleProjects} tasks={visibleTasks} members={visibleMembers} teams={teams} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} session={session} canEdit={hasEditAccess} onUpdateProject={p=>saveP(projects.map(x=>x.id===p.id?p:x))} onSelectProject={id=>{setSelProjId(id);setDetailMode(true);}} onAddProject={p=>saveP([...projects,p])} onDelProject={id=>{saveP(projects.filter(p=>p.id!==id));saveT(tasks.filter(t=>t.projectId!==id));}} onUpdateTask={upTask} batchUpTask={batchUpTask} onAddTask={t=>saveT([...tasks,t])} onDelTask={id=>saveT(tasks.filter(t=>t.id!==id))}/>;
     if(tab==="teams")    return <TeamsView teams={teams} members={visibleMembers} tasks={visibleTasks} projects={visibleProjects} companies={companies} selCompany={selCompany} setSelCompany={setSelCompany} setTeams={setTeams} setMembers={setMembers}/>;
     if(tab==="accounts"&&isAdmin) return <UsersView members={members} teams={teams} companies={companies} users={users} setUsers={setUsers}/>;
     return null;
@@ -2751,7 +3175,18 @@ function App(){
         }
       </div>
       {detailMode&&<div style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:700,fontSize:13,color:C.dim,letterSpacing:0.5}}>{pageTitle()}</div>}
-      <button className="tap" onClick={()=>setShowProf(true)} style={{background:"none",border:"none",cursor:"pointer",padding:2}}><Av initials={session.name[0].toUpperCase()} color={isAdmin?C.gold:session.role==="leader"?C.green:C.blue} size={38}/></button>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <button className="tap" title="Download backup" onClick={()=>{
+          const data={version:"ct-export-v1",exportedAt:new Date().toISOString(),companies:LS.get(SK.companies)||[],teams:LS.get(SK.teams)||[],members:LS.get(SK.members)||[],users:LS.get(SK.users)||[],projects:LS.get(SK.projects)||[],tasks:LS.get(SK.tasks)||[]};
+          const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+          const url=URL.createObjectURL(blob);const a=document.createElement("a");
+          const date=new Date().toISOString().slice(0,10);
+          a.href=url;a.download=`CivilTech_backup_${date}.json`;a.click();URL.revokeObjectURL(url);
+        }} style={{display:"flex",alignItems:"center",justifyContent:"center",width:36,height:36,borderRadius:"50%",background:C.bgInput,border:"1px solid "+C.border2,cursor:"pointer",color:C.muted}}>
+          <Icon name="dl" size={16}/>
+        </button>
+        <button className="tap" onClick={()=>setShowProf(true)} style={{background:"none",border:"none",cursor:"pointer",padding:2}}><Av initials={session.name[0].toUpperCase()} color={isAdmin?C.gold:session.role==="leader"?C.green:C.blue} size={38}/></button>
+      </div>
     </div>
     <div className="fade-in" style={{flex:1,overflowY:"auto",padding:"13px 13px 0",WebkitOverflowScrolling:"touch"}}>{main()}<div style={{height:24}}/></div>
     {!detailMode&&<div style={{background:C.bg1,borderTop:"1px solid "+C.border,paddingBottom:"env(safe-area-inset-bottom)",flexShrink:0}}>
